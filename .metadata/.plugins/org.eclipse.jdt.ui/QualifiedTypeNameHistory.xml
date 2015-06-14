@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.awt.Point"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
+<fullyQualifiedTypeName name="Characters.Player"/>
+<fullyQualifiedTypeName name="Camera.Camera"/>
+<fullyQualifiedTypeName name="Physics.PlayerPhysics"/>
+<fullyQualifiedTypeName name="Essentials.WotWPanel"/>
+<fullyQualifiedTypeName name="com.sun.glass.ui.Window"/>
+<fullyQualifiedTypeName name="java.awt.Window"/>
+<fullyQualifiedTypeName name="com.sun.javafx.geom.Shape"/>
+<fullyQualifiedTypeName name="java.awt.geom.RectangularShape"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.awt.Image"/>
+<fullyQualifiedTypeName name="com.sun.javafx.geom.Rectangle"/>
+<fullyQualifiedTypeName name="java.awt.Rectangle"/>
+<fullyQualifiedTypeName name="Items.Item"/>
+<fullyQualifiedTypeName name="Items.SoulItem"/>
+<fullyQualifiedTypeName name="Essentials.Window"/>
+<fullyQualifiedTypeName name="com.sun.prism.Image"/>
+<fullyQualifiedTypeName name="java.awt.Font"/>
+<fullyQualifiedTypeName name="Platforms.Platform"/>
+<fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="java.awt.Graphics"/>
+<fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
+<fullyQualifiedTypeName name="Levels.Level1"/>
+<fullyQualifiedTypeName name="Levels.Level2"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+</qualifiedTypeNameHistroy>

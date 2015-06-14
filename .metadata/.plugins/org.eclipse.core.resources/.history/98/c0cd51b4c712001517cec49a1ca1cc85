@@ -1,0 +1,55 @@
+package Levels;
+
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
+import Cameras.Camera;
+import Characters.Player;
+import Graphics.EntityGraphics;
+import Graphics.InventoryGraphics;
+import Graphics.ItemGraphics;
+import Graphics.PlatformGraphics;
+import Graphics.PlayerGraphics;
+import Items.Item;
+import Items.SoulItem;
+import Physics.ItemPhysics;
+import Physics.PlayerPhysics;
+import Platforms.Platform;
+
+public class Level1 extends Level{
+
+	public Level1(Player player, JPanel panel) {
+		super(1, player, panel);
+		this.player = player;
+		this.panel = panel;
+		
+	}
+
+	
+	public void paint(Graphics g){
+
+	}
+	
+	public void run(){
+		playerPhysics.doMovement(player, platforms);
+		items = itemPhysics.doActions(player, items);
+	}
+	
+	public void keyPressed(KeyEvent e){
+		if(e.getKeyChar() == 'd')
+			playerPhysics.addVelocity(3, 90, "move right");
+		else if(e.getKeyChar() == 'w')
+			playerPhysics.addVelocity(9, 0, "jump");
+		else if(e.getKeyChar() == 's')
+			playerPhysics.addVelocity(3, 180, "move down");
+		else if(e.getKeyChar() == 'a')
+			playerPhysics.addVelocity(4, 270, "move left");
+	}
+
+	public void postRun(){
+
+	}
+}
