@@ -32,6 +32,6 @@ public class Level1 extends Level{
 	@Override
 	public void levelCustomization(){
 		addPlatform(25, 200, 500, 30, "stuff");
-	addSoul(350, 165);
+		addSoul(350, 170);
 	}
 }
