@@ -22,13 +22,14 @@ public class PlayerGraphics {
 	Image scaledSoulImage;
 	Image[] playerLeftImages;
 	Image[] playerRightImages;
-	Image playerIdleImage;
 	int soulImageX;
 	int soulImageY;
 	Font fontHUD;
 	int playerAnimationFrame;
 	int playerAnimationPauseTicks;
 	int playerAnimationPauseTicksMax;
+
+	Image playerImage;
 	
 	int fps;
 
@@ -39,6 +40,9 @@ public class PlayerGraphics {
 		this.panel = panel;
 		playerLeftImages = new Image[4];
 		playerRightImages = new Image[4];
+		try {
+			playerImage = ImageIO.read(new URL("file:warlockidle.png"));
+		} catch (Exception e1) {}
 		
 		playerAnimationPauseTicks = 0;
 		playerAnimationPauseTicksMax = 75;
@@ -52,14 +56,11 @@ public class PlayerGraphics {
 			for(int i = 0; i < playerRightImages.length; i++){
 				playerRightImages[i] = ImageIO.read(new URL("file:warlockright_" + i + ".png"));
 			}
-			playerIdleImage = ImageIO.read(new URL("file:warlockidle.png"));
 		} catch (Exception e) {}
 	}
 
 	public void drawPlayer(Player player, Graphics g, Camera camera){
 		//g.drawRect((int) (player.getX() - camera.getCamX()), ((int) (player.getY() - player.getHeight()) - camera.getCamY()), player.getWidth(), player.getHeight());
-		
-		Image playerImage = null;
 		
 		if(player.isMovingLeft()){
 			if(playerAnimationPauseTicks == playerAnimationPauseTicksMax){
@@ -73,6 +74,7 @@ public class PlayerGraphics {
 		
 			//System.out.println(playerAnimationFrame);
 			playerImage = playerLeftImages[playerAnimationFrame];
+			player.setDirection("left");
 		}
 		else if(player.isMovingRight()){
 			if(playerAnimationPauseTicks == playerAnimationPauseTicksMax){
@@ -86,8 +88,13 @@ public class PlayerGraphics {
 		
 			//System.out.println(playerAnimationFrame);
 			playerImage = playerRightImages[playerAnimationFrame];
+			player.setDirection("right");
 		}
-		else playerImage = playerRightImages[0];
+		else if(player.getDirection().equals("right"))
+			playerImage = playerRightImages[0];
+		else if(player.getDirection().equals("left"))
+			playerImage = playerLeftImages[0];
+		
 		
 		g.drawImage(playerImage, (int) player.getX() - camera.getCamX(), (int) player.getY() - playerImage.getHeight(panel) - camera.getCamY(), panel);
 	}

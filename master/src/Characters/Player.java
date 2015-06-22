@@ -16,6 +16,7 @@ public class Player {
 	private boolean movingRight;
 	private boolean movingLeft;
 	private boolean canJump;
+	private String direction;
 
 	public Player(BufferedImage playerImage, double x, double y, int healthMax, int health, int gold, int soulMax, int souls, int width, int height){
 		this.playerImage = playerImage;
@@ -33,6 +34,14 @@ public class Player {
 		canJump = false;
 	}
 	
+	public String getDirection() {
+		return direction;
+	}
+
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+
 	public boolean canJump() {
 		return canJump;
 	}

@@ -25,6 +25,10 @@ public class ItemPhysics {
 			player.addSoul();
 			return true;
 		}
+		else if(item.getClass().getSimpleName().equals("CoinItem")){
+			player.setGold(player.getGold() + 1);
+			return true;
+		}
 		else return false;
 	}
 
