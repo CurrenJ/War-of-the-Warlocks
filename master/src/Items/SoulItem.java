@@ -8,6 +8,7 @@ public class SoulItem extends Item{
 
 	public SoulItem(int x, int y, JPanel panel) {
 		super(x, y, 7, 12, 20, "soul", panel, 20);
+		disableGravity = true;
 		// TODO Auto-generated constructor stub
 	}
 	

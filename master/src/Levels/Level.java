@@ -39,7 +39,7 @@ public class Level {
 	private ItemPhysics itemPhysics;
 
 	private Camera camera;
-	
+
 	long tempTime;
 	int framesPassed;
 	int fps;
@@ -52,14 +52,18 @@ public class Level {
 
 	public void levelCustomization(){}
 
-	public void addPlatform(int x,int y, int width, int height, String type){
-		platforms.add(new Platform(x, y, width, height, type));
+	public void addPlatform(Platform platform){
+		platforms.add(platform);
 	}
 
-	public void addSoul(int x, int y){
-		items.add(new SoulItem(x, y, panel));
+	public void addSoul(SoulItem soul){
+		items.add(soul);
 	}
 
+	public void addItem(Item item){
+		items.add(item);
+	}
+	
 	public void initialize(){
 		platforms = new ArrayList();
 		items = new ArrayList();
@@ -71,7 +75,7 @@ public class Level {
 		playerGraphics = new PlayerGraphics(panel);
 		camera = new Camera(0, 0, panel);
 		playerPhysics = new PlayerPhysics(true);
-		itemPhysics = new ItemPhysics();
+		itemPhysics = new ItemPhysics(true);
 		platforms = new ArrayList();
 		items = new ArrayList();
 
@@ -100,7 +104,9 @@ public class Level {
 	public void run() {
 		playerPhysics.doMovement(player, platforms);
 		items = itemPhysics.doActions(player, items);
-		
+		for(int i = 0; i < items.size(); i++)
+			itemPhysics.doMovement(items.get(i), platforms, player);
+
 		calculateFPS();
 		playerGraphics.giveFPS(fps);
 	}
@@ -127,10 +133,10 @@ public class Level {
 		else if(e.getKeyChar() == 'a')
 			player.setMovingLeft(false);
 	}
-	
+
 	public void calculateFPS(){
 		int fps;
-		
+
 		framesPassed++;
 		if(System.currentTimeMillis() - tempTime >= 1000){
 			fps = framesPassed;

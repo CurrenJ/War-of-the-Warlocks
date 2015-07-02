@@ -9,8 +9,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Item {
-	private int xPos;
-	protected int yPos;
+	private double xPos;
+	protected double yPos;
 	private BufferedImage image;
 	private int width;
 	private int height;
@@ -21,8 +21,18 @@ public class Item {
 	private JPanel panel;
 	protected int animationPause = 0;
 	protected int curPauseNum = 0;
+	protected boolean disableGravity;
+	
+	ArrayList<Double> speeds;
+	ArrayList<Double> angles;
+	ArrayList<String> names;
 
 	public Item(int x, int y, String prefix, JPanel panel){
+		speeds = new ArrayList();
+		angles = new ArrayList();
+		names = new ArrayList();
+		disableGravity = false;
+		
 		xPos = x;
 		yPos = y;
 		filePrefix = prefix;
@@ -35,6 +45,11 @@ public class Item {
 	}
 
 	public Item(int x, int y, int width, int height, String prefix, JPanel panel){
+		speeds = new ArrayList();
+		angles = new ArrayList();
+		names = new ArrayList();
+		disableGravity = false;
+		
 		xPos = x;
 		yPos = y;
 		this.width = width;
@@ -46,6 +61,11 @@ public class Item {
 	}
 
 	public Item(int x, int y, int width, int height, int animationFrames, String prefix, JPanel panel, int pause){
+		speeds = new ArrayList();
+		angles = new ArrayList();
+		names = new ArrayList();
+		disableGravity = false;
+		
 		xPos = x;
 		yPos = y;
 		this.width = width;
@@ -59,6 +79,11 @@ public class Item {
 	}
 
 	public Item(int x, int y, int animationFrames, String prefix, JPanel panel, int pause){
+		speeds = new ArrayList();
+		angles = new ArrayList();
+		names = new ArrayList();
+		disableGravity = false;
+		
 		xPos = x;
 		yPos = y;
 		this.animationFrames = animationFrames;
@@ -101,6 +126,38 @@ public class Item {
 		}
 	}
 
+	public boolean isGravityDisabled() {
+		return disableGravity;
+	}
+
+	public void setDisableGravity(boolean disableGravity) {
+		this.disableGravity = disableGravity;
+	}
+
+	public ArrayList<Double> getSpeeds() {
+		return speeds;
+	}
+
+	public void setSpeeds(ArrayList<Double> speeds) {
+		this.speeds = speeds;
+	}
+
+	public ArrayList<Double> getAngles() {
+		return angles;
+	}
+
+	public void setAngles(ArrayList<Double> angles) {
+		this.angles = angles;
+	}
+
+	public ArrayList<String> getNames() {
+		return names;
+	}
+
+	public void setNames(ArrayList<String> names) {
+		this.names = names;
+	}
+
 	public int getWidth() {
 		return width;
 	}
@@ -117,19 +174,19 @@ public class Item {
 		this.height = height;
 	}
 
-	public int getX() {
+	public double getX() {
 		return xPos;
 	}
 
-	public void setX(int xPos) {
+	public void setX(double xPos) {
 		this.xPos = xPos;
 	}
 
-	public int getY() {
+	public double getY() {
 		return yPos;
 	}
 
-	public void setY(int yPos) {
+	public void setY(double yPos) {
 		this.yPos = yPos;
 	}
 
