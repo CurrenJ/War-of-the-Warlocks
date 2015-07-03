@@ -13,7 +13,6 @@ import Graphics.InventoryGraphics;
 import Graphics.ItemGraphics;
 import Graphics.PlatformGraphics;
 import Graphics.PlayerGraphics;
-import Items.CoinItem;
 import Items.Item;
 import Items.SoulItem;
 import Physics.ItemPhysics;
@@ -63,10 +62,6 @@ public class Level {
 
 	public void addItem(Item item){
 		items.add(item);
-	}
-	
-	public void addCoin(CoinItem coin){
-		items.add(coin);
 	}
 	
 	public void initialize(){

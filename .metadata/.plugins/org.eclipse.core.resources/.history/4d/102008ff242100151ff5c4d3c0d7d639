@@ -22,7 +22,7 @@ public class Item {
 	protected int animationPause = 0;
 	protected int curPauseNum = 0;
 	protected boolean disableGravity;
-
+	
 	ArrayList<Double> speeds;
 	ArrayList<Double> angles;
 	ArrayList<String> names;
@@ -32,7 +32,7 @@ public class Item {
 		angles = new ArrayList();
 		names = new ArrayList();
 		disableGravity = false;
-
+		
 		xPos = x;
 		yPos = y;
 		filePrefix = prefix;
@@ -49,14 +49,14 @@ public class Item {
 		angles = new ArrayList();
 		names = new ArrayList();
 		disableGravity = false;
-
+		
 		xPos = x;
 		yPos = y;
 		this.width = width;
 		this.height = height;
 		filePrefix = prefix;
 		this.panel = panel;
-
+		
 		loadImages();
 	}
 
@@ -65,7 +65,7 @@ public class Item {
 		angles = new ArrayList();
 		names = new ArrayList();
 		disableGravity = false;
-
+		
 		xPos = x;
 		yPos = y;
 		this.width = width;
@@ -74,7 +74,7 @@ public class Item {
 		filePrefix = prefix;
 		this.panel = panel;
 		animationPause = pause;
-
+		
 		loadImages();
 	}
 
@@ -83,7 +83,7 @@ public class Item {
 		angles = new ArrayList();
 		names = new ArrayList();
 		disableGravity = false;
-
+		
 		xPos = x;
 		yPos = y;
 		this.animationFrames = animationFrames;
@@ -101,10 +101,7 @@ public class Item {
 		try {
 			for(int i = 0; i < animationFrames; i++){
 				System.out.println("file:" + filePrefix + "_" + i + ".png");
-				if(animationFrames == 1)
-					images.add(ImageIO.read(new URL("file:" + filePrefix + ".png")));
-				else
-					images.add(ImageIO.read(new URL("file:" + filePrefix + "_" + i + ".png")));
+				images.add(ImageIO.read(new URL("file:" + filePrefix + "_" + i + ".png")));
 			}
 		} catch (Exception e){
 			e.printStackTrace();
@@ -121,7 +118,7 @@ public class Item {
 		}
 		else {
 			curPauseNum = 0;
-
+			
 			if(curFrame + 1 != animationFrames){
 				curFrame++;
 			}
