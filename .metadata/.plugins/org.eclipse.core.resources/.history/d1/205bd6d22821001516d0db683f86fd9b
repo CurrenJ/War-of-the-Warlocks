@@ -120,22 +120,16 @@ public class PlayerGraphics {
 		String soulDisplay = "" + player.getSouls();
 		g.drawString(soulDisplay, (int) (soulImageX - g.getFontMetrics().stringWidth(soulDisplay) - scale), soulImageY + scaledSoulImage.getHeight(panel) / 2 + g.getFontMetrics().getAscent() / 2);
 		
-		
-		
 		g.setFont(fontHUD);
 		String goldDisplay = "" + player.getGold();
-		
 		scaledGoldImage = goldImage.getScaledInstance((int) (goldImage.getWidth(panel)*scale), (int) (goldImage.getHeight(panel)*scale), 0);
-		goldImageY = (int) scale + scaledSoulImage.getHeight(panel) / 2 - scaledGoldImage.getHeight(panel) / 2 + scaledSoulImage.getHeight(panel);
-		goldImageX = (int) ((panel.getWidth() - goldImage.getWidth(panel) * scale - scale));
+		g.drawString(goldDisplay, (int) (goldImageX - g.getFontMetrics().stringWidth(goldDisplay) - scale), goldImageY + scaledGoldImage.getHeight(panel) / 2 + g.getFontMetrics().getAscent() / 4);
 		
-		g.drawString(goldDisplay, (int) (goldImageX - g.getFontMetrics().stringWidth(goldDisplay) - scale), goldImageY + scaledGoldImage.getHeight(panel) / 2 + g.getFontMetrics().getAscent() / 2);
-		
-		
+		goldImageY = (int) scale + scaledSoulImage.getHeight(panel) / 2 - scaledGoldImage.getHeight(panel) / 2 + g.getFontMetrics().getAscent() / 2;
+		goldImageX = (int) ((panel.getWidth() - goldImage.getWidth(panel) * scale - scale) -  scaledSoulImage.getWidth(panel) - g.getFontMetrics().stringWidth(soulDisplay) - scale);
 
 		g.drawImage(scaledGoldImage, goldImageX, goldImageY, panel);
 	
-		
 		g.drawString(fps + "", panel.getWidth() - g.getFontMetrics().stringWidth(fps + ""), panel.getHeight());
 	}
 

@@ -126,8 +126,8 @@ public class PlayerGraphics {
 		String goldDisplay = "" + player.getGold();
 		
 		scaledGoldImage = goldImage.getScaledInstance((int) (goldImage.getWidth(panel)*scale), (int) (goldImage.getHeight(panel)*scale), 0);
-		goldImageY = (int) scale + scaledSoulImage.getHeight(panel) / 2 - scaledGoldImage.getHeight(panel) / 2 + scaledSoulImage.getHeight(panel);
-		goldImageX = (int) ((panel.getWidth() - goldImage.getWidth(panel) * scale - scale));
+		goldImageY = (int) scale + scaledSoulImage.getHeight(panel) / 2;
+		goldImageX = (int) ((panel.getWidth() - goldImage.getWidth(panel) * scale - scale) -  scaledSoulImage.getWidth(panel) - g.getFontMetrics().stringWidth(soulDisplay) - scale);
 		
 		g.drawString(goldDisplay, (int) (goldImageX - g.getFontMetrics().stringWidth(goldDisplay) - scale), goldImageY + scaledGoldImage.getHeight(panel) / 2 + g.getFontMetrics().getAscent() / 2);
 		
