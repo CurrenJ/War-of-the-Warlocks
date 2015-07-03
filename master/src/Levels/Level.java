@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import Cameras.Camera;
 import Characters.Player;
+import Entities.Entity;
 import Graphics.EntityGraphics;
 import Graphics.InventoryGraphics;
 import Graphics.ItemGraphics;
@@ -16,6 +17,7 @@ import Graphics.PlayerGraphics;
 import Items.CoinItem;
 import Items.Item;
 import Items.SoulItem;
+import Physics.EntityPhysics;
 import Physics.ItemPhysics;
 import Physics.PlayerPhysics;
 import Platforms.Platform;
@@ -29,13 +31,16 @@ public class Level {
 
 	private ArrayList<Platform> platforms;
 	private ArrayList<Item> items;
+	private ArrayList<Entity> entities;
 
+	
 	private EntityGraphics entityGraphics;
 	private InventoryGraphics invGraphics;
 	private ItemGraphics itemGraphics;
 	private PlatformGraphics platformGraphics;
 	private PlayerGraphics playerGraphics;
 
+	private EntityPhysics entityPhysics;
 	private PlayerPhysics playerPhysics;
 	private ItemPhysics itemPhysics;
 
@@ -69,9 +74,14 @@ public class Level {
 		items.add(coin);
 	}
 	
+	public void addEntity(Entity entity){
+		entities.add(entity);
+	}
+	
 	public void initialize(){
 		platforms = new ArrayList();
 		items = new ArrayList();
+		entities = new ArrayList();
 
 		entityGraphics = new EntityGraphics(panel);
 		invGraphics = new InventoryGraphics(panel);
@@ -79,6 +89,7 @@ public class Level {
 		platformGraphics = new PlatformGraphics(panel);
 		playerGraphics = new PlayerGraphics(panel);
 		camera = new Camera(0, 0, panel);
+		entityPhysics = new EntityPhysics();
 		playerPhysics = new PlayerPhysics(true);
 		itemPhysics = new ItemPhysics(true);
 		platforms = new ArrayList();
@@ -98,6 +109,12 @@ public class Level {
 				Item item = items.get(i);
 				itemGraphics.drawItem(item, g, camera);
 			}
+			
+			for(int i = 0; i < entities.size(); i++){
+				Entity entity = entities.get(i);
+				entityGraphics.drawEntity(entity, g, camera);
+			}
+			
 			camera.reposition(player);
 			playerGraphics.drawPlayer(player, g, camera);
 			playerGraphics.drawHUD(player, g);
@@ -111,6 +128,8 @@ public class Level {
 		items = itemPhysics.doActions(player, items);
 		for(int i = 0; i < items.size(); i++)
 			itemPhysics.doMovement(items.get(i), platforms, player);
+		for(int i = 0; i < entities.size(); i++)
+			entityPhysics.doMovement(entities.get(i), platforms, player);
 
 		calculateFPS();
 		playerGraphics.giveFPS(fps);

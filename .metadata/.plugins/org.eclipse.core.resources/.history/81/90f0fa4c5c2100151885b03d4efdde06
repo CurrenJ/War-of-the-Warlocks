@@ -1,0 +1,10 @@
+package Items;
+
+import javax.swing.JPanel;
+
+public class CoinItem extends Entity{
+
+	public CoinItem(int x, int y, JPanel panel){
+		super(x, y, "coin", panel);
+	}
+}

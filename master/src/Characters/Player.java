@@ -32,6 +32,7 @@ public class Player {
 		movingRight = false;
 		movingLeft = false;
 		canJump = false;
+		direction = "right";
 	}
 	
 	public String getDirection() {

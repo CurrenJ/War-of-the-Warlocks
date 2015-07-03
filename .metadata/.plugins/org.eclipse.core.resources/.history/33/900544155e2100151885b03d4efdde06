@@ -1,0 +1,30 @@
+package Graphics;
+
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
+import Cameras.Camera;
+import Entities.Entity;
+
+public class EntityGraphics {
+	JPanel panel;
+	Camera camera;
+	
+	//Draws entities, such as:
+	//Fireballs
+	//Lightning
+	//Other Projectiles
+	//Particles
+	//Etc.
+	//
+	//Will pass in Entity object
+	public EntityGraphics(JPanel panel, Camera camera){
+		this.panel = panel;
+		this.camera = camera;
+	}
+	
+	public void drawEntity(Entity entity, Graphics g){
+		entity.drawEntity(g, camera);
+	}
+}
