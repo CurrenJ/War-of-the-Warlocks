@@ -125,16 +125,9 @@ public class Level {
 
 	public void run() {
 		playerPhysics.doMovement(player, platforms);
-		
-		itemPhysics.setLists(entities, items);
-		
+		items = itemPhysics.doActions(player, items);
 		for(int i = 0; i < items.size(); i++)
 			itemPhysics.doMovement(items.get(i), platforms, player);
-		itemPhysics.doActions(player);
-		
-		items = itemPhysics.getItems();
-		entities = itemPhysics.getEntities();
-		
 		for(int i = 0; i < entities.size(); i++)
 			entityPhysics.doMovement(entities.get(i), platforms, player);
 

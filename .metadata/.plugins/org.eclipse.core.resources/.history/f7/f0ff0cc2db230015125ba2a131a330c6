@@ -8,7 +8,7 @@ import Entities.Entity;
 import Items.Item;
 import Platforms.Platform;
 
-public class EntityPhysics extends Physics{
+public class EntityPhysics  extends Physics{
 	
 	public static final double FRICTION_FACTOR = 15;
 	public static final double FRICTION_VAR = FRICTION_FACTOR / 500 + 1;

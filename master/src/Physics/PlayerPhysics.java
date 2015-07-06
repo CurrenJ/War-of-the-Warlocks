@@ -7,7 +7,7 @@ import java.awt.geom.RectangularShape;
 import Characters.Player;
 import Platforms.Platform;
 
-public class PlayerPhysics {
+public class PlayerPhysics extends Physics{
 	ArrayList<Double> speeds;
 	ArrayList<Double> angles;
 	ArrayList<String> names;

@@ -11,7 +11,7 @@ public class SoulBitEntity extends Entity{
 	Color color = Color.decode("#99E2FF");
 	
 	public SoulBitEntity(int x, int y, JPanel panel){
-		super(x, y, 4, 4, panel);
+		super(x, y, 2, 2, panel);
 	}
 	
 	@Override

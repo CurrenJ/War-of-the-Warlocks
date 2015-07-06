@@ -4,10 +4,11 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import Characters.Player;
+import Entities.Entity;
 import Items.Item;
 import Platforms.Platform;
 
-public class ItemPhysics {
+public class ItemPhysics extends Physics{
 	public static final double FRICTION_FACTOR = 15;
 	public static final double FRICTION_VAR = FRICTION_FACTOR / 500 + 1;
 	public static final double ATTRACT_DIST = 100;
@@ -194,9 +195,9 @@ public class ItemPhysics {
 		else return false;
 	}
 
-	public ArrayList<Item> doActions(Player player, ArrayList<Item> items){
+	public void doActions(Player player){
 		for(int i = 0; i < items.size(); i++){
-			Item item = items.get(i);
+			Item item = (Item) items.get(i);
 			if(touchingPlayer(player, item)){
 				if(playerInteraction(player, item)){
 					items.remove(i);
@@ -204,6 +205,5 @@ public class ItemPhysics {
 				}
 			}
 		}
-		return items;
 	}
 }

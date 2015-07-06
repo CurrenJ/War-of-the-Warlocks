@@ -49,7 +49,7 @@ public class PlayerGraphics {
 		} catch (Exception e1) {}
 		
 		playerAnimationPauseTicks = 0;
-		playerAnimationPauseTicksMax = 50;
+		playerAnimationPauseTicksMax = 75;
 
 		try {
 			soulImage = ImageIO.read(new URL("file:soul_15.png"));
