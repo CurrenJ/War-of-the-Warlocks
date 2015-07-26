@@ -14,7 +14,6 @@
 <fullyQualifiedTypeName name="java.awt.geom.RectangularShape"/>
 <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.awt.Image"/>
 <fullyQualifiedTypeName name="com.sun.javafx.geom.Rectangle"/>
 <fullyQualifiedTypeName name="java.awt.Rectangle"/>
 <fullyQualifiedTypeName name="Items.SoulItem"/>
@@ -30,7 +29,11 @@
 <fullyQualifiedTypeName name="Items.CoinItem"/>
 <fullyQualifiedTypeName name="Cameras.Camera"/>
 <fullyQualifiedTypeName name="java.awt.Graphics"/>
-<fullyQualifiedTypeName name="javax.swing.JPanel"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="Entities.Entity"/>
+<fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="java.awt.Image"/>
+<fullyQualifiedTypeName name="java.util.Timer"/>
+<fullyQualifiedTypeName name="javax.swing.Timer"/>
+<fullyQualifiedTypeName name="Entities.SoulBitEntity"/>
 </qualifiedTypeNameHistroy>

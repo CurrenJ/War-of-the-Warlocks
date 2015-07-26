@@ -3,8 +3,11 @@ package Physics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 import Characters.Player;
 import Entities.Entity;
+import Entities.SoulBitEntity;
 import Items.Item;
 import Platforms.Platform;
 
@@ -13,9 +16,15 @@ public class ItemPhysics extends Physics{
 	public static final double FRICTION_VAR = FRICTION_FACTOR / 500 + 1;
 	public static final double ATTRACT_DIST = 100;
 
+	PlayerPhysics playerPhysics;
+	EntityPhysics entityPhysics;
+	
 	boolean gravityEnabled;
+	JPanel panel;
 
-	public ItemPhysics(boolean gravityEnabled){
+	public ItemPhysics(JPanel panel, boolean gravityEnabled){
+		super(panel);
+		this.panel = panel;
 		this.gravityEnabled = gravityEnabled;
 	}
 
@@ -186,6 +195,17 @@ public class ItemPhysics extends Physics{
 		if(item.getClass().getSimpleName().equals("SoulItem")){
 			//System.out.println("It's a soul you're touching!");
 			player.addSoul();
+			
+			SoulBitEntity soulBit;
+			int time = (int) System.currentTimeMillis();
+			
+			for(int i = 0; i < 32; i++){
+			soulBit = new SoulBitEntity((int) item.getX(), (int) item.getY(), panel);
+			soulBit.startAgeAt(time);
+			entityPhysics.addVelocity(2.5, 11.25 * i, "Soul Bit Poof", soulBit);
+			entities.add(soulBit);
+			}
+			
 			return true;
 		}
 		else if(item.getClass().getSimpleName().equals("CoinItem")){
@@ -205,5 +225,18 @@ public class ItemPhysics extends Physics{
 				}
 			}
 		}
+	}
+
+	public void setPhysics(PlayerPhysics playerPhysics, EntityPhysics entityPhysics){
+		this.playerPhysics = playerPhysics;
+		this.entityPhysics = entityPhysics;
+	}
+
+	public EntityPhysics getEntityPhysics(){
+		return entityPhysics;
+	}
+
+	public PlayerPhysics getPlayerPhysics(){
+		return playerPhysics;
 	}
 }

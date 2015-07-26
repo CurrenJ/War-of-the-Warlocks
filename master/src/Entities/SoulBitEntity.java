@@ -1,25 +1,28 @@
 package Entities;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import Cameras.Camera;
-
 public class SoulBitEntity extends Entity{
-	Color color = Color.decode("#99E2FF");
+	Color color = Color.decode("#1592c4");
+	long startTime;
 	
 	public SoulBitEntity(int x, int y, JPanel panel){
-		super(x, y, 4, 4, panel);
+		super(x, y, 2, 2, "soulBit", panel);
+		
+		//startAging();
 	}
 	
-	@Override
-	public void drawEntity(Graphics g, Camera camera){
-		int relativeX = (int) xPos - camera.getCamX();
-		int relativeY = ((int) yPos - height - camera.getCamY());
-		
-		g.setColor(color);
-		g.fillRect(relativeX, relativeY, width, height);
+	public void startAging(){
+		startTime = System.currentTimeMillis();
+	}
+	
+	public void startAgeAt(int age){
+		startTime = age;
+	}
+	
+	public int getAge(){
+		return (int) (System.currentTimeMillis() - startTime);
 	}
 }

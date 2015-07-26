@@ -89,9 +89,9 @@ public class Level {
 		platformGraphics = new PlatformGraphics(panel);
 		playerGraphics = new PlayerGraphics(panel);
 		camera = new Camera(0, 0, panel);
-		entityPhysics = new EntityPhysics();
-		playerPhysics = new PlayerPhysics(true);
-		itemPhysics = new ItemPhysics(true);
+		entityPhysics = new EntityPhysics(panel);
+		playerPhysics = new PlayerPhysics(panel, true);
+		itemPhysics = new ItemPhysics(panel, true);
 		platforms = new ArrayList();
 		items = new ArrayList();
 
@@ -124,9 +124,20 @@ public class Level {
 	}
 
 	public void run() {
+		//Does player interactions and passes and gets vars
+		playerPhysics.setLists(entities, items);
+		playerPhysics.setPhysics(entityPhysics, itemPhysics);
+		
 		playerPhysics.doMovement(player, platforms);
 		
+		entities = playerPhysics.getEntities();
+		items = playerPhysics.getItems();
+		entityPhysics = playerPhysics.getEntityPhysics();
+		itemPhysics = playerPhysics.getItemPhysics();
+		
+		//Does item interactions and passes and gets vars
 		itemPhysics.setLists(entities, items);
+		itemPhysics.setPhysics(playerPhysics, entityPhysics);
 		
 		for(int i = 0; i < items.size(); i++)
 			itemPhysics.doMovement(items.get(i), platforms, player);
@@ -134,10 +145,22 @@ public class Level {
 		
 		items = itemPhysics.getItems();
 		entities = itemPhysics.getEntities();
+		playerPhysics = itemPhysics.getPlayerPhysics();
+		entityPhysics = itemPhysics.getEntityPhysics();
+		
+		//Does entity interactions and passes and gets lists
+		entityPhysics.setLists(entities, items);
+		entityPhysics.setPhysics(playerPhysics, itemPhysics);
 		
 		for(int i = 0; i < entities.size(); i++)
-			entityPhysics.doMovement(entities.get(i), platforms, player);
+			entityPhysics.doMovement(entities.get(i), platforms, player, i);
 
+		items = entityPhysics.getItems();
+		entities = entityPhysics.getEntities();
+		playerPhysics = entityPhysics.getPlayerPhysics();
+		itemPhysics = entityPhysics.getItemPhysics();
+		
+		//Calculates FPS and passed it to playerGraphics where HUD is drawn
 		calculateFPS();
 		playerGraphics.giveFPS(fps);
 	}

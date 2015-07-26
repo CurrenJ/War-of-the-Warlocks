@@ -3,17 +3,32 @@ package Physics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
 import Characters.Player;
 import Entities.Entity;
 import Items.Item;
 import Platforms.Platform;
+import Entities.SoulBitEntity;
 
 public class EntityPhysics extends Physics{
 	
 	public static final double FRICTION_FACTOR = 15;
 	public static final double FRICTION_VAR = FRICTION_FACTOR / 500 + 1;
 
-	public EntityPhysics(){}
+	PlayerPhysics playerPhysics;
+	ItemPhysics itemPhysics;
+	
+	ArrayList<String> names;
+	ArrayList<Double> speeds;
+	ArrayList<Double> angles;
+	
+	JPanel panel;
+	
+	public EntityPhysics(JPanel panel){
+		super(panel);
+		this.panel = panel;
+	}
 	
 	public double distanceFormula(double x1, double y1, double x2, double y2){
 		return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
@@ -25,24 +40,23 @@ public class EntityPhysics extends Physics{
 		return Math.atan2(deltaY, deltaX) * 180 / Math.PI;
 	}
 
-	public void attractToPlayer(Entity entity, Player player){
+	public void attractToPlayer(Entity entity, Player player, int multiplier){
 		double dist = distanceFormula(entity.getX(), entity.getY(), player.getX() + player.getWidth() / 2, player.getY() - player.getHeight() / 2);
-		addVelocity(0.5, angleBetweenPoints(player.getX() + player.getWidth() / 2, player.getY() - player.getHeight() / 2, entity.getX(), entity.getY()) + 270,"attraction to player", entity);
+		addVelocity(0.1 * multiplier, angleBetweenPoints(player.getX() + player.getWidth() / 2, player.getY() - player.getHeight() / 2, entity.getX(), entity.getY()) + 270,"attraction to player", entity);
 	}
 
 	public void addVelocity(double speed, double angle, String name, Entity entity){
-		ArrayList<String> names = entity.getNames();
-		ArrayList<Double> speeds = entity.getSpeeds();
-		ArrayList<Double> angles = entity.getAngles();
+		names = entity.getNames();
+		speeds = entity.getSpeeds();
+		angles = entity.getAngles();
 		
 		boolean foundMatch = false;
 		for(int n = 0; n < names.size() && !foundMatch; n++){
 			if(names.get(n).equals(name)){
-				int index = n;
 
-				speeds.set(index, speed);
-				angles.set(index, angle);
-				names.set(index, name);
+				speeds.set(n, speed);
+				angles.set(n, angle);
+				names.set(n, name);
 
 				foundMatch = true;
 			}
@@ -58,18 +72,23 @@ public class EntityPhysics extends Physics{
 		entity.setAngles(angles);
 	}
 	
-	public void doMovement(Entity entity, ArrayList<Platform> platforms, Player player){
+	public void doMovement(Entity entity, ArrayList<Platform> platforms, Player player, int index){
 		ArrayList<String> names = entity.getNames();
 		ArrayList<Double> speeds = entity.getSpeeds();
 		ArrayList<Double> angles = entity.getAngles();
 		
-		if(entity.getClass().getSimpleName().equals("SoulBitEntity")){
-			attractToPlayer(entity, player);
+		if(entity.isGravityEnabled()){
+			addVelocity(4, 180, "gravity", entity);
 		}
-
-		//if(gravityEnabled && !entity.isGravityDisabled())
-			//addVelocity(4, 180, "gravity", entity);
-
+		
+		if(entity.getClass().getSimpleName().equals("SoulBitEntity")){
+			attractToPlayer(entity, player, 5);
+			SoulBitEntity soulBit = (SoulBitEntity) entity;
+			if(soulBit.getAge() > 1800){
+				entities.remove(index);
+			}
+		}
+		
 		for(int n = 0; n < names.size(); n++){
 
 			//System.out.println("Apply \"" + names.get(n) + "\" with a speed of " + speeds.get(n) + " at " + angles.get(n) + " degrees.");
@@ -144,7 +163,7 @@ public class EntityPhysics extends Physics{
 			entity.setX(ptX);
 			entity.setY(ptY);
 
-			if(speeds.get(n) / FRICTION_VAR > -1 && speeds.get(n) / FRICTION_VAR < 1){
+			if(speeds.get(n) / FRICTION_VAR > -0.01 && speeds.get(n) / FRICTION_VAR < 0.01){
 				speeds.set(n, (double) 0);
 				angles.set(n, (double) 0);
 				names.set(n, "");
@@ -159,5 +178,18 @@ public class EntityPhysics extends Physics{
 				names.remove(n);
 			}
 		}
+	}
+
+	public void setPhysics(PlayerPhysics playerPhysics, ItemPhysics itemPhysics) {
+		this.playerPhysics = playerPhysics;
+		this.itemPhysics = itemPhysics;
+	}
+
+	public PlayerPhysics getPlayerPhysics(){
+		return playerPhysics;
+	}
+
+	public ItemPhysics getItemPhysics(){
+		return itemPhysics;
 	}
 }

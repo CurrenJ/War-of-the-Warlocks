@@ -1,8 +1,13 @@
 package Entities;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import Cameras.Camera;
@@ -11,19 +16,23 @@ public class Entity {
 	ArrayList<String> names;
 	ArrayList<Double> speeds;
 	ArrayList<Double> angles;
-	
+
 	double xPos;
 	double yPos;
 	int width;
 	int height;
 	JPanel panel;
-	
+	boolean gravityEnabled = false;
+	String prefix = "";
+
+	Image image = null;
+
 	public Entity(int x, int y, int width, int height, JPanel panel){
 		//Initializes movement arraylists
 		names = new ArrayList();
 		speeds = new ArrayList();
 		angles = new ArrayList();
-	
+
 		//Store passed in variables
 		xPos = x;
 		yPos = y;
@@ -31,11 +40,35 @@ public class Entity {
 		this.height = height;
 		this.panel = panel; //Needed for some graphics
 	}
-	
+
+	public Entity(int x, int y, int width, int height, String prefix, JPanel panel){
+		//Initializes movement arraylists
+		names = new ArrayList();
+		speeds = new ArrayList();
+		angles = new ArrayList();
+
+		//Store passed in variables
+		xPos = x;
+		yPos = y;
+		this.width = width;
+		this.height = height;
+		this.prefix = prefix;
+		this.panel = panel; //Needed for some graphics
+
+		try {
+			image = ImageIO.read(new URL("file:" + prefix + ".png"));
+		} catch (Exception e){}
+	}
+
 	public void drawEntity(Graphics g, Camera camera){
 		int relativeX = (int) xPos - camera.getCamX();
 		int relativeY = ((int) yPos - height - camera.getCamY());
-		g.drawRect(relativeX, relativeY, width, height);
+
+		if(prefix.isEmpty())
+			g.drawRect(relativeX, relativeY, width, height);
+		else
+			g.drawImage(image, relativeX, relativeY, panel);
+
 	}
 
 	public int getWidth() {
@@ -93,6 +126,12 @@ public class Entity {
 	public void setY(double yPos) {
 		this.yPos = yPos;
 	}
-	
-	
+
+	public boolean isGravityEnabled(){
+		return gravityEnabled;
+	}
+
+	public void setGravityEnabled(boolean grav){
+		gravityEnabled = grav;
+	}
 }

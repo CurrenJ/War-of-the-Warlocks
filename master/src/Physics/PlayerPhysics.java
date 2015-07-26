@@ -1,8 +1,9 @@
 package Physics;
 
-import java.util.ArrayList;
 import java.awt.Rectangle;
-import java.awt.geom.RectangularShape;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
 
 import Characters.Player;
 import Platforms.Platform;
@@ -11,13 +12,20 @@ public class PlayerPhysics extends Physics{
 	ArrayList<Double> speeds;
 	ArrayList<Double> angles;
 	ArrayList<String> names;
+	
+	EntityPhysics entityPhysics;
+	ItemPhysics itemPhysics;
 
 	boolean gravityEnabled;
+	JPanel panel;
 
 	public static final double FRICTION_FACTOR = 15;
 	public static final double FRICTION_VAR = FRICTION_FACTOR / 500 + 1;
 
-	public PlayerPhysics(boolean gravityEnabled){
+	public PlayerPhysics(JPanel panel, boolean gravityEnabled){
+		super(panel);
+		this.panel = panel;
+		
 		this.gravityEnabled = gravityEnabled;
 
 		speeds = new ArrayList();
@@ -155,5 +163,18 @@ public class PlayerPhysics extends Physics{
 				names.remove(n);
 			}
 		}
+	}
+
+	public void setPhysics(EntityPhysics entityPhysics, ItemPhysics itemPhysics){
+		this.entityPhysics = entityPhysics;
+		this.itemPhysics = itemPhysics;
+	}
+
+	public EntityPhysics getEntityPhysics(){
+		return entityPhysics;
+	}
+
+	public ItemPhysics getItemPhysics(){
+		return itemPhysics;
 	}
 }
