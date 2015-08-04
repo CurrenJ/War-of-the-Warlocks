@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import Cameras.Camera;
-import Graphics.EntityGraphics;
 
 public class Entity {
 	ArrayList<String> names;
@@ -56,22 +55,21 @@ public class Entity {
 		this.height = height;
 		this.prefix = prefix;
 		this.panel = panel; //Needed for some graphics
-		
-		if(!EntityGraphics.entityImages.containsKey(this.getClass().getSimpleName())){
-			try {
-				EntityGraphics.entityImages.put(this.getClass().getSimpleName(), ImageIO.read(new URL("file:" + prefix + ".png")));
-			} catch (Exception e){}
-		}
+
+		try {
+			image = ImageIO.read(new URL("file:" + prefix + ".png"));
+		} catch (Exception e){}
 	}
 
-	public void drawEntity(Graphics g, Camera camera){
+	public void drawEntity(Graphics g, Camera camera, Map entityImages){
 		int relativeX = (int) xPos - camera.getCamX();
 		int relativeY = ((int) yPos - height - camera.getCamY());
 
 		if(prefix.isEmpty())
 			g.drawRect(relativeX, relativeY, width, height);
 		else
-			g.drawImage((Image) EntityGraphics.entityImages.get(this.getClass().getSimpleName()), relativeX, relativeY, panel);
+			g.drawImage(image, relativeX, relativeY, panel);
+
 	}
 
 	public int getWidth() {

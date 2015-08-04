@@ -59,7 +59,7 @@ public class Entity {
 		
 		if(!EntityGraphics.entityImages.containsKey(this.getClass().getSimpleName())){
 			try {
-				EntityGraphics.entityImages.put(this.getClass().getSimpleName(), ImageIO.read(new URL("file:" + prefix + ".png")));
+				EntityGraphics.entityImages.put(this.getClass().getSimpleName(), ImageIO.read(new URL("file:" + imageName + ".png")));
 			} catch (Exception e){}
 		}
 	}

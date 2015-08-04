@@ -32,4 +32,9 @@ public class EntityGraphics {
 	public void drawEntity(Entity entity, Graphics g, Camera camera){
 		entity.drawEntity(g, camera);
 	}
+
+	public void addEntityImage(String className, String imageName){
+		
+	}
+
 }

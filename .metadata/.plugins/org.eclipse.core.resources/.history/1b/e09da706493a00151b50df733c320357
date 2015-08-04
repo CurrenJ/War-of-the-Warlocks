@@ -14,7 +14,7 @@ import Entities.Entity;
 
 public class EntityGraphics {
 	JPanel panel;
-	public static Map<String, Image> entityImages;
+	Map<String, Image> entityImages;
 
 	//Draws entities, such as:
 	//Fireballs
@@ -30,6 +30,15 @@ public class EntityGraphics {
 	}
 
 	public void drawEntity(Entity entity, Graphics g, Camera camera){
-		entity.drawEntity(g, camera);
+		entity.drawEntity(g, camera, entityImages);
 	}
+
+	public void addEntityImage(String className, String imageName){
+		if(!entityImages.containsKey(className)){
+			try {
+				entityImages.put(className, ImageIO.read(new URL("file:" + imageName + ".png")));
+			} catch (Exception e){}
+		}
+	}
+
 }

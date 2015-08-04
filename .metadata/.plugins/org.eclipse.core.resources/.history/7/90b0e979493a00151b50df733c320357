@@ -82,7 +82,7 @@ public class EntityPhysics extends Physics{
 		}
 		
 		if(entity.getClass().getSimpleName().equals("SoulBitEntity")){
-			attractToPlayer(entity, player, 6);
+			attractToPlayer(entity, player, 10);
 			SoulBitEntity soulBit = (SoulBitEntity) entity;
 			if(soulBit.getAge() > 1800){
 				entities.remove(index);
