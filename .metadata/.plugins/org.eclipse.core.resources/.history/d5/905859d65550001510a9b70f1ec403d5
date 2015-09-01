@@ -1,0 +1,22 @@
+package Entities;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+
+public class SoulBitEntity extends Entity{
+	Color color = Color.decode("#1592c4");
+
+	public SoulBitEntity(int x, int y, JPanel panel){
+		super(x, y, 2, 2, "soulBit", panel);
+	}
+
+	@Override
+	public int getAge(){
+		int age = (int) (System.currentTimeMillis() - startTime);
+		
+		System.out.println((1800 - age) / 1000);
+
+		return age;
+	}
+}

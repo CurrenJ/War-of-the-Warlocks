@@ -1,6 +1,7 @@
 package Levels;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -98,7 +99,7 @@ public class Level {
 		levelCustomization();
 	}
 
-	public void paint(Graphics g) {
+	public void paint(Graphics2D g) {
 		try {
 			for(int p = 0; p < platforms.size(); p++){
 				Platform platform = platforms.get(p);

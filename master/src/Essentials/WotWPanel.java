@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -34,6 +35,7 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener{
 	static Window window;
 	ArrayList<Level> levels;
 	int levelNum = 0;
+	Graphics2D g = null;
 
 	Level1 level1;
 	Player player;
@@ -65,10 +67,11 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener{
 		level.initialize();
 	}
 
-	public void paint(Graphics g){
-		super.paint(g);
+	public void paint(Graphics graphics){
+		super.paint(graphics);
 		Level level = levels.get(levelNum);
-
+		g = (Graphics2D)graphics;
+		
 		level.paint(g);
 	}
 

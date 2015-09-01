@@ -199,10 +199,12 @@ public class ItemPhysics extends Physics{
 			SoulBitEntity soulBit;
 			int time = (int) System.currentTimeMillis();
 			
-			for(int i = 0; i < 32; i++){
+			int soulbits = (int) (Math.round(Math.random() * 32) * 1.75);
+			int degreeDif = 360 / soulbits;
+			for(int i = 0; i < soulbits; i++){
 			soulBit = new SoulBitEntity((int) item.getX(), (int) item.getY(), panel);
 			soulBit.startAgeAt(time);
-			entityPhysics.addVelocity(2.5, 11.25 * i, "Soul Bit Poof", soulBit);
+			entityPhysics.addVelocity(1.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i, "Soul Bit Poof", soulBit);
 			entities.add(soulBit);
 			}
 			

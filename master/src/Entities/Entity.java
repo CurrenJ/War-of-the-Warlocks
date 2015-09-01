@@ -1,12 +1,9 @@
 package Entities;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -26,8 +23,12 @@ public class Entity {
 	JPanel panel;
 	boolean gravityEnabled = false;
 	String prefix = "";
+	long startTime;
 
 	Image image = null;
+	
+	protected float opacity;
+	public final float BASE_OPACITY = 1;
 
 	public Entity(int x, int y, int width, int height, JPanel panel){
 		//Initializes movement arraylists
@@ -41,6 +42,8 @@ public class Entity {
 		this.width = width;
 		this.height = height;
 		this.panel = panel; //Needed for some graphics
+		
+		opacity = BASE_OPACITY;
 	}
 
 	public Entity(int x, int y, int width, int height, String prefix, JPanel panel){
@@ -55,7 +58,9 @@ public class Entity {
 		this.width = width;
 		this.height = height;
 		this.prefix = prefix;
-		this.panel = panel; //Needed for some graphics
+		this.panel = panel; //Needed for some graphicsgra
+		
+		opacity = BASE_OPACITY;
 		
 		if(!EntityGraphics.entityImages.containsKey(this.getClass().getSimpleName())){
 			try {
@@ -63,15 +68,17 @@ public class Entity {
 			} catch (Exception e){}
 		}
 	}
-
-	public void drawEntity(Graphics g, Camera camera){
-		int relativeX = (int) xPos - camera.getCamX();
-		int relativeY = ((int) yPos - height - camera.getCamY());
-
-		if(prefix.isEmpty())
-			g.drawRect(relativeX, relativeY, width, height);
-		else
-			g.drawImage((Image) EntityGraphics.entityImages.get(this.getClass().getSimpleName()), relativeX, relativeY, panel);
+	
+	public void startAging(){
+		startTime = System.currentTimeMillis();
+	}
+	
+	public void startAgeAt(int age){
+		startTime = age;
+	}
+	
+	public int getAge(){
+		return (int) (System.currentTimeMillis() - startTime);
 	}
 
 	public int getWidth() {
@@ -136,5 +143,13 @@ public class Entity {
 
 	public void setGravityEnabled(boolean grav){
 		gravityEnabled = grav;
+	}
+	
+	public String getPrefix(){
+		return prefix;
+	}
+
+	public float getOpacity() {
+		return opacity;
 	}
 }

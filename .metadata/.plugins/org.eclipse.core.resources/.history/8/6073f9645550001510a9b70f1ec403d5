@@ -1,0 +1,22 @@
+package Entities;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+
+public class SoulBitEntity extends Entity{
+	Color color = Color.decode("#1592c4");
+
+	public SoulBitEntity(int x, int y, JPanel panel){
+		super(x, y, 2, 2, "soulBit", panel);
+	}
+
+	@Override
+	public int getAge(){
+		float tempOpacity = (1800 - ((System.currentTimeMillis() - startTime))) / 1000;
+		if(tempOpacity <= 1 && tempOpacity >= 0)
+			opacity = tempOpacity;
+		System.out.println(tempOpacity);
+		return (int) (System.currentTimeMillis() - startTime);
+	}
+}

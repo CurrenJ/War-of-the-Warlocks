@@ -1,6 +1,6 @@
 package Graphics;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
@@ -17,7 +17,7 @@ public class PlatformGraphics {
 		this.panel = panel;
 	}
 	
-	public static void drawPlatform(Platform platform, Graphics g, Camera camera){
+	public static void drawPlatform(Platform platform, Graphics2D g, Camera camera){
 		g.drawRect(platform.getX() - camera.getCamX(), (platform.getY() - platform.getHeight()) - camera.getCamY(), platform.getWidth(), platform.getHeight());
 		//g.drawImage(platform.getImage(), platform.getX() - camera.getCamX(), (platform.getY() - platform.getHeight()) - camera.getCamY(), panel);
 	}

@@ -2,18 +2,15 @@ package Graphics;
 
 import java.awt.Font;
 import java.awt.Graphics;
-import java.io.IOException;
-import java.net.MalformedURLException;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import java.awt.Image;
-
 import Cameras.Camera;
 import Characters.Player;
-import Essentials.Window;
 
 public class PlayerGraphics {
 	JPanel panel;
@@ -64,7 +61,7 @@ public class PlayerGraphics {
 		} catch (Exception e) {}
 	}
 
-	public void drawPlayer(Player player, Graphics g, Camera camera){
+	public void drawPlayer(Player player, Graphics2D g, Camera camera){
 		//g.drawRect((int) (player.getX() - camera.getCamX()), ((int) (player.getY() - player.getHeight()) - camera.getCamY()), player.getWidth(), player.getHeight());
 		
 		if(player.isMovingLeft()){
@@ -104,7 +101,7 @@ public class PlayerGraphics {
 		g.drawImage(playerImage, (int) player.getX() - camera.getCamX(), (int) player.getY() - playerImage.getHeight(panel) - camera.getCamY(), panel);
 	}
 
-	public void drawHUD(Player player, Graphics g){
+	public void drawHUD(Player player, Graphics2D g){
 		scale = (panel.getHeight() + panel.getWidth()) / 2 / 208;
 		if(scale < 1.5) scale = 1.5;
 
