@@ -1,0 +1,257 @@
+package Physics;
+
+import java.awt.Rectangle;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
+import Characters.Player;
+import Entities.GoldBitEntity;
+import Entities.SoulBitEntity;
+import Items.Item;
+import Platforms.Platform;
+
+public class ItemPhysics extends Physics{
+	public static final double FRICTION_FACTOR = 15;
+	public static final double FRICTION_VAR = FRICTION_FACTOR / 500 + 1;
+	public static final double ATTRACT_DIST = 100;
+
+	PlayerPhysics playerPhysics;
+	EntityPhysics entityPhysics;
+	
+	boolean gravityEnabled;
+	JPanel panel;
+
+	public ItemPhysics(JPanel panel, boolean gravityEnabled){
+		super(panel);
+		this.panel = panel;
+		this.gravityEnabled = gravityEnabled;
+	}
+
+	public void gravityEnabled(boolean enabled){
+		if(enabled)
+			gravityEnabled = true;
+		else gravityEnabled = false;
+	}
+
+	public double distanceFormula(double x1, double y1, double x2, double y2){
+		return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
+	}
+
+	public double angleBetweenPoints(double x1, double y1, double x2, double y2){
+		double deltaY = (y2 - y1);
+		double deltaX = (x2 - x1);
+		return Math.atan2(deltaY, deltaX) * 180 / Math.PI;
+	}
+
+	public void attractToPlayer(Item item, Player player){
+		double dist = distanceFormula(item.getX(), item.getY(), player.getX(), player.getY());
+		if(dist < ATTRACT_DIST){
+			addVelocity((Math.sqrt(ATTRACT_DIST) - Math.sqrt(dist)) / 8, angleBetweenPoints(player.getX(), player.getY(), item.getX(), item.getY()) + 270,"attraction to player", item);
+		}
+	}
+
+	public void addVelocity(double speed, double angle, String name, Item item){
+		ArrayList<String> names = item.getNames();
+		ArrayList<Double> speeds = item.getSpeeds();
+		ArrayList<Double> angles = item.getAngles();
+
+		boolean foundMatch = false;
+		for(int n = 0; n < names.size() && !foundMatch; n++){
+			if(names.get(n).equals(name)){
+				int index = n;
+
+				speeds.set(index, speed);
+				angles.set(index, angle);
+				names.set(index, name);
+
+				foundMatch = true;
+			}
+		}
+		if(!foundMatch){
+			speeds.add(speed);
+			angles.add(angle);
+			names.add(name);
+		}
+
+		item.setNames(names);
+		item.setSpeeds(speeds);
+		item.setAngles(angles);
+	}
+
+	public void doMovement(Item item, ArrayList<Platform> platforms, Player player){
+		ArrayList<String> names = item.getNames();
+		ArrayList<Double> speeds = item.getSpeeds();
+		ArrayList<Double> angles = item.getAngles();
+
+		if(item.getClass().getSimpleName().equals("SoulItem")){
+			attractToPlayer(item, player);
+		}
+
+		if(gravityEnabled && !item.isGravityDisabled())
+			addVelocity(4, 180, "gravity", item);
+
+		for(int n = 0; n < names.size(); n++){
+
+			//System.out.println("Apply \"" + names.get(n) + "\" with a speed of " + speeds.get(n) + " at " + angles.get(n) + " degrees.");
+
+			double angle = (2) * Math.PI + ((angles.get(n) - 90) * ((2) * Math.PI / 360));
+			double ptX = (item.getX() + speeds.get(n) * Math.cos(angle));
+			double ptY = (item.getY() + speeds.get(n) * Math.sin(angle));
+
+			for(int p = 0; p < platforms.size(); p++){
+				Platform platform = platforms.get(p);
+
+				Rectangle platformRect = new Rectangle(platform.getX(), platform.getY() - platform.getHeight(), platform.getWidth(), platform.getHeight());
+				Rectangle playerRect = new Rectangle((int) ptX, (int) (ptY - item.getHeight()), item.getWidth(), item.getHeight());
+
+				if(playerRect.intersects(platformRect)){
+					//System.out.println("Intersection detected");
+					speeds.set(n, 0.0);
+					boolean top = false;
+					boolean left = false;
+
+					boolean absoluteNotHorizontalEdge = false;
+
+					int intersectionX = (int) playerRect.intersection(platformRect).getX();
+					int intersectionY = (int) playerRect.intersection(platformRect).getY();
+
+					if(intersectionX < platform.getX() + platform.getWidth() / 2){
+						left = true;
+					}
+					else if(intersectionX > platform.getX() + platform.getWidth() / 2 && item.getX() > platform.getX() + platform.getWidth()){
+						left = false;
+					}
+
+					if(item.getX() > platform.getX() && item.getX() < platform.getX()+ platform.getWidth()){
+						absoluteNotHorizontalEdge = true;
+					}
+
+					if(intersectionY < platform.getY() - platform.getHeight() / 2){
+						top = true;
+					}
+					else if(intersectionY > platform.getY() - platform.getHeight() / 2){
+						top = false;
+					}
+
+					double xSpeed = Math.abs(ptX - item.getX());
+					double ySpeed = Math.abs(ptY - item.getY());
+					//System.out.println(xSpeed + " : " + ySpeed);
+
+
+					if(xSpeed == 1 || xSpeed < .25)
+						xSpeed = 0;
+
+					if(ySpeed == 1 || ySpeed < .25)
+						ySpeed = 0;
+
+					if(Math.abs(xSpeed) < Math.abs(ySpeed) || absoluteNotHorizontalEdge){
+						if(top){
+							ptY = platformRect.getY();
+						}
+						else{
+							ptY = platformRect.getY() + platformRect.getHeight() + item.getHeight();
+						}
+					}
+					else if((Math.abs(xSpeed) > Math.abs(ySpeed) && !absoluteNotHorizontalEdge)){
+						if(left){
+							ptX = platformRect.getX() - item.getWidth();
+						}
+						else ptX = platformRect.getX() + platformRect.getWidth();
+					}
+				}
+			}
+
+			item.setX(ptX);
+			item.setY(ptY);
+
+			if(speeds.get(n) / FRICTION_VAR > -1 && speeds.get(n) / FRICTION_VAR < 1){
+				speeds.set(n, (double) 0);
+				angles.set(n, (double) 0);
+				names.set(n, "");
+				n++;
+			}
+			else addVelocity(speeds.get(n) / FRICTION_VAR, angles.get(n), names.get(n), item);
+		}
+		for(int n = 0; n < names.size(); n++){
+			if(names.get(n).equals("")){
+				speeds.remove(n);
+				angles.remove(n);
+				names.remove(n);
+			}
+		}
+	}
+
+	public boolean touchingPlayer(Player player, Item item){
+		Rectangle itemRect = new Rectangle((int) item.getX(), (int) item.getY() - item.getHeight(), item.getWidth(), item.getHeight());
+		Rectangle playerRect = new Rectangle((int) player.getX(), (int) (player.getY() - player.getHeight()), player.getWidth(), player.getHeight());
+
+		if(itemRect.intersects(playerRect)) return true;
+		else return false;
+	}
+
+	public boolean playerInteraction(Player player, Item item){
+		//System.out.println("You're touching " + item.getClass().getSimpleName());
+		if(item.getClass().getSimpleName().equals("SoulItem")){
+			//System.out.println("It's a soul you're touching!");
+			player.addSoul();
+			
+			SoulBitEntity soulBit;
+			int time = (int) System.currentTimeMillis();
+			
+			int soulbits = (int) (Math.round(Math.random() * 32) * 1.75);
+			int degreeDif = 360 / soulbits;
+			for(int i = 0; i < soulbits; i++){
+			soulBit = new SoulBitEntity((int) item.getX(), (int) item.getY(), panel);
+			soulBit.startAgeAt(time);
+			entityPhysics.addVelocity(1.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i, "Soul Bit Poof", soulBit);
+			entities.add(soulBit);
+			}
+			
+			return true;
+		}
+		else if(item.getClass().getSimpleName().equals("CoinItem")){
+			player.setGold(player.getGold() + 1);
+			
+			GoldBitEntity goldBit;
+			int time = (int) System.currentTimeMillis();
+			
+			int goldbits = (int) (Math.round(Math.random() * 32) * 1.25);
+			int degreeDif = 180 / goldbits;
+			for(int i = 0; i < goldbits; i++){
+			goldBit = new GoldBitEntity((int) item.getX(), (int) item.getY(), panel);
+			goldBit.startAgeAt(time);
+			entityPhysics.addVelocity(2.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i + 270, "Gold Bit Poof", goldBit);
+			entities.add(goldBit);
+			}
+			
+			return true;
+		}
+		else return false;
+	}
+
+	public void doActions(Player player){
+		for(int i = 0; i < items.size(); i++){
+			Item item = (Item) items.get(i);
+			if(touchingPlayer(player, item)){
+				if(playerInteraction(player, item)){
+					items.remove(i);
+					i++;
+				}
+			}
+		}
+	}
+
+	public void setPhysics(PlayerPhysics playerPhysics, EntityPhysics entityPhysics){
+		this.playerPhysics = playerPhysics;
+		this.entityPhysics = entityPhysics;
+	}
+
+	public EntityPhysics getEntityPhysics(){
+		return entityPhysics;
+	}
+
+	public PlayerPhysics getPlayerPhysics(){
+		return playerPhysics;
+	}
+}

@@ -11,24 +11,24 @@ import Entities.FadingBitEntity;
 import Platforms.Platform;
 
 public class EntityPhysics extends Physics{
-	
+
 	public static final double FRICTION_FACTOR = 15;
 	public static final double FRICTION_VAR = FRICTION_FACTOR / 500 + 1;
 
 	PlayerPhysics playerPhysics;
 	ItemPhysics itemPhysics;
-	
+
 	ArrayList<String> names;
 	ArrayList<Double> speeds;
 	ArrayList<Double> angles;
-	
+
 	JPanel panel;
-	
+
 	public EntityPhysics(JPanel panel){
 		super(panel);
 		this.panel = panel;
 	}
-	
+
 	public double distanceFormula(double x1, double y1, double x2, double y2){
 		return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
 	}
@@ -48,7 +48,7 @@ public class EntityPhysics extends Physics{
 		names = entity.getNames();
 		speeds = entity.getSpeeds();
 		angles = entity.getAngles();
-		
+
 		boolean foundMatch = false;
 		for(int n = 0; n < names.size() && !foundMatch; n++){
 			if(names.get(n).equals(name)){
@@ -70,25 +70,29 @@ public class EntityPhysics extends Physics{
 		entity.setSpeeds(speeds);
 		entity.setAngles(angles);
 	}
-	
+
 	public void doMovement(Entity entity, ArrayList<Platform> platforms, Player player, int index){
 		ArrayList<String> names = entity.getNames();
 		ArrayList<Double> speeds = entity.getSpeeds();
 		ArrayList<Double> angles = entity.getAngles();
-		
+
 		if(entity.isGravityEnabled()){
-			addVelocity(4, 180, "gravity", entity);
+			if(entity.getClass().getSimpleName().equals("GoldBitEntity"))
+				addVelocity(1, 180, "gravity", entity);
+			else
+				addVelocity(4, 180, "gravity", entity);
 		}
-		
+
 		if(entity.getClass().getSuperclass().getSimpleName().equals("FadingBitEntity")){
-			attractToPlayer(entity, player, 6);
-			
+			if(entity.getClass().getSimpleName().equals("SoulBitEntity"))
+				attractToPlayer(entity, player, 6);
+
 			FadingBitEntity fadingBit = (FadingBitEntity) entity;
 			if(fadingBit.getAge() > fadingBit.LIFE_SPAN){
 				entities.remove(index);
 			}
 		}
-		
+
 		for(int n = 0; n < names.size(); n++){
 
 			//System.out.println("Apply \"" + names.get(n) + "\" with a speed of " + speeds.get(n) + " at " + angles.get(n) + " degrees.");

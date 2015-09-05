@@ -21,9 +21,19 @@ public class Level1 extends Level{
 	@Override
 	public void levelCustomization(){
 		addPlatform(new Platform(25, 200, 500, 30, "stuff"));
-		addSoul(new SoulItem(200, 165, panel));
-		addSoul(new SoulItem(275, 165, panel));
-		addSoul(new SoulItem(350, 165, panel));
-		addCoin(new CoinItem(335, 100, panel));
+//		addSoul(new SoulItem(200, 165, panel));
+//		addSoul(new SoulItem(275, 165, panel));
+//		addSoul(new SoulItem(350, 165, panel));
+		addCoin(new CoinItem(100, 100, panel));
+		
+		addCoin(new CoinItem(150, 100, panel));
+		addCoin(new CoinItem(160, 100, panel));
+		addCoin(new CoinItem(170, 100, panel));
+		addCoin(new CoinItem(180, 100, panel));
+		addCoin(new CoinItem(190, 100, panel));
+		addCoin(new CoinItem(200, 100, panel));
+		addCoin(new CoinItem(210, 100, panel));
+		addCoin(new CoinItem(220, 100, panel));
+		addCoin(new CoinItem(230, 100, panel));
 	}
 }
