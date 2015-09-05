@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import Characters.Player;
-import Entities.Entity;
+import Entities.GoldBitEntity;
 import Entities.SoulBitEntity;
 import Items.Item;
 import Platforms.Platform;
@@ -212,6 +212,19 @@ public class ItemPhysics extends Physics{
 		}
 		else if(item.getClass().getSimpleName().equals("CoinItem")){
 			player.setGold(player.getGold() + 1);
+			
+			GoldBitEntity goldBit;
+			int time = (int) System.currentTimeMillis();
+			
+			int goldbits = (int) (Math.round(Math.random() * 32) * 1.25);
+			int degreeDif = 360 / goldbits;
+			for(int i = 0; i < goldbits; i++){
+			goldBit = new GoldBitEntity((int) item.getX(), (int) item.getY(), panel);
+			goldBit.startAgeAt(time);
+			entityPhysics.addVelocity(1.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i, "Gold Bit Poof", goldBit);
+			entities.add(goldBit);
+			}
+			
 			return true;
 		}
 		else return false;

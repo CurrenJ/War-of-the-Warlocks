@@ -1,0 +1,13 @@
+package Entities;
+
+import javax.swing.JPanel;
+
+public class GoldBitEntity extends Entity{
+
+	public GoldBitEntity(int x, int y, JPanel panel){
+		super(x, y, 2, 2, "goldBit", panel);
+		
+		fadeStart = (int) (Math.random() * )
+	}
+
+}

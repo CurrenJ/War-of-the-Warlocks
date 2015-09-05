@@ -7,9 +7,8 @@ import javax.swing.JPanel;
 
 import Characters.Player;
 import Entities.Entity;
-import Items.Item;
+import Entities.FadingBitEntity;
 import Platforms.Platform;
-import Entities.SoulBitEntity;
 
 public class EntityPhysics extends Physics{
 	
@@ -81,10 +80,11 @@ public class EntityPhysics extends Physics{
 			addVelocity(4, 180, "gravity", entity);
 		}
 		
-		if(entity.getClass().getSimpleName().equals("SoulBitEntity")){
+		if(entity.getClass().getSuperclass().getSimpleName().equals("FadingBitEntity")){
 			attractToPlayer(entity, player, 6);
-			SoulBitEntity soulBit = (SoulBitEntity) entity;
-			if(soulBit.getAge() > 1800){
+			
+			FadingBitEntity fadingBit = (FadingBitEntity) entity;
+			if(fadingBit.getAge() > fadingBit.LIFE_SPAN){
 				entities.remove(index);
 			}
 		}
