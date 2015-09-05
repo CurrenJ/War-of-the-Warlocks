@@ -1,0 +1,21 @@
+package Backgrounds;
+
+import javax.swing.JPanel;
+
+public class ParallaxBackgroundSet {
+	String prefix;
+	JPanel panel;
+	
+	public ParallaxBackgroundSet(String prefix, JPanel panel){
+		this.prefix = prefix;
+		this.panel = panel;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+}
