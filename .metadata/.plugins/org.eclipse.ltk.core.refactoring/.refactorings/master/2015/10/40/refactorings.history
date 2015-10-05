@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;Backgrounds.ParallaxBackgroundSet.findWHRatio()&apos; to &apos;scaleToWindow&apos;&#x0D;&#x0A;- Original project: &apos;master&apos;&#x0D;&#x0A;- Original element: &apos;Backgrounds.ParallaxBackgroundSet.findWHRatio()&apos;&#x0D;&#x0A;- Renamed element: &apos;Backgrounds.ParallaxBackgroundSet.scaleToWindow()&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;findWHRatio&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;Backgrounds{ParallaxBackgroundSet.java[ParallaxBackgroundSet~findWHRatio" name="scaleToWindow" references="true" stamp="1443667074804" version="1.0"/>
+</session>

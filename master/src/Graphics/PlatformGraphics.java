@@ -1,5 +1,6 @@
 package Graphics;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
@@ -18,7 +19,8 @@ public class PlatformGraphics {
 	}
 	
 	public static void drawPlatform(Platform platform, Graphics2D g, Camera camera){
-		g.drawRect(platform.getX() - camera.getCamX(), (platform.getY() - platform.getHeight()) - camera.getCamY(), platform.getWidth(), platform.getHeight());
+		g.setColor(Color.lightGray);
+		g.fillRect(platform.getX() - camera.getCamX(), (platform.getY() - platform.getHeight()) - camera.getCamY(), platform.getWidth(), platform.getHeight());
 		//g.drawImage(platform.getImage(), platform.getX() - camera.getCamX(), (platform.getY() - platform.getHeight()) - camera.getCamY(), panel);
 	}
 }

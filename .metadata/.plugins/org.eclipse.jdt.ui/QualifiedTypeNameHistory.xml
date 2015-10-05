@@ -17,7 +17,6 @@
 <fullyQualifiedTypeName name="com.sun.javafx.geom.Rectangle"/>
 <fullyQualifiedTypeName name="java.awt.Rectangle"/>
 <fullyQualifiedTypeName name="Items.SoulItem"/>
-<fullyQualifiedTypeName name="Essentials.Window"/>
 <fullyQualifiedTypeName name="com.sun.prism.Image"/>
 <fullyQualifiedTypeName name="java.awt.Font"/>
 <fullyQualifiedTypeName name="Platforms.Platform"/>
@@ -41,5 +40,8 @@
 <fullyQualifiedTypeName name="java.awt.AlphaComposite"/>
 <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
 <fullyQualifiedTypeName name="Cameras.Camera"/>
+<fullyQualifiedTypeName name="Backgrounds.DarkCitySkylineBackground"/>
+<fullyQualifiedTypeName name="Backgrounds.ParallaxBackgroundSet"/>
+<fullyQualifiedTypeName name="Essentials.Window"/>
 <fullyQualifiedTypeName name="Graphics.BackgroundGraphics"/>
 </qualifiedTypeNameHistroy>

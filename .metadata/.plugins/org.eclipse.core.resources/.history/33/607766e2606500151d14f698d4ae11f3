@@ -1,0 +1,20 @@
+package Backgrounds;
+
+import javax.swing.JPanel;
+
+import Graphics.BackgroundGraphics;
+
+public class DarkCitySkylineBackground extends ParallaxBackgroundSet{
+
+	public DarkCitySkylineBackground(JPanel panel){
+		super("darkSkyline", 3, panel);
+		if(!BackgroundGraphics.backgrounds.containsKey(prefix)){
+			addToBackgrounds();
+		}
+	}
+
+	@Override
+	public void addToBackgrounds(){
+		BackgroundGraphics.backgrounds.put(prefix, new DarkCitySkylineBackground(panel));
+	}
+}

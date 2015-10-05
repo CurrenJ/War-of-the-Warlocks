@@ -216,7 +216,7 @@ public class ItemPhysics extends Physics{
 			GoldBitEntity goldBit;
 			int time = (int) System.currentTimeMillis();
 			
-			int goldbits = (int) (Math.round(Math.random() * 32) * 1);
+			int goldbits = (int) (Math.round(Math.random() * 32) + 1);
 			int degreeDif = 90 / goldbits;
 			for(int i = 0; i < goldbits; i++){
 			goldBit = new GoldBitEntity((int) item.getX(), (int) item.getY(), panel);

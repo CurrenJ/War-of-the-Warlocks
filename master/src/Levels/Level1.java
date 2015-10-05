@@ -2,25 +2,29 @@ package Levels;
 
 import javax.swing.JPanel;
 
+import Backgrounds.ParallaxBackgroundSet;
 import Characters.Player;
 import Entities.SoulBitEntity;
+import Graphics.BackgroundGraphics;
 import Items.CoinItem;
 import Items.SoulItem;
 import Platforms.Platform;
 
 public class Level1 extends Level{
-
+	private ParallaxBackgroundSet background;
 	private int levelNum;
 	private Player player;
 	private JPanel panel;
 
-	public Level1(int levelNum, Player player, JPanel panel) {
-		super(levelNum, player, panel);
+	public Level1(Player player, JPanel panel) {
+		super(0, player, panel);
 	}
 
 	@Override
 	public void levelCustomization(){
-		addPlatform(new Platform(25, 200, 500, 30, "stuff"));
+		background = BackgroundGraphics.backgrounds.get("darkSkyline");
+		
+		addPlatform(new Platform(25, 200, 2000, 30, "stuff"));
 //		addSoul(new SoulItem(200, 165, panel));
 //		addSoul(new SoulItem(275, 165, panel));
 //		addSoul(new SoulItem(350, 165, panel));

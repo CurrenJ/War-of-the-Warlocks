@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -30,7 +32,7 @@ import Physics.PlayerPhysics;
 import Platforms.Platform;
 
 
-public class WotWPanel extends JPanel implements KeyListener, MouseListener{
+public class WotWPanel extends JPanel implements KeyListener, MouseListener, ComponentListener{
 	JTextField typingArea;
 	static Window window;
 	ArrayList<Level> levels;
@@ -39,6 +41,7 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener{
 
 	Level1 level1;
 	Player player;
+	Level level;
 
 	public WotWPanel(Window window) throws Exception{
 		this.window = window;
@@ -47,6 +50,7 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener{
 		typingArea.addKeyListener(this);
 		addMouseListener(this);
 		add(typingArea, BorderLayout.PAGE_START);
+		this.window.addComponentListener(this);
 
 		setBackground(Color.decode("#FFFFFF"));
 		setPreferredSize(new Dimension(window.WIDTH, window.HEIGHT));
@@ -55,21 +59,20 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener{
 		player = new Player(null, 10, getHeight(), 0, 0, 0, 0, 0, 24, 44);
 		levels = new ArrayList();
 
-		level1 = new Level1(0, player, this);
+		level1 = new Level1(player, this);
 		levels.add(level1);
 
 		loadLevel();
 	}
 
 	public void loadLevel(){
-		Level level = levels.get(levelNum);
+		level = levels.get(levelNum);
 
 		level.initialize();
 	}
 
 	public void paint(Graphics graphics){
 		super.paint(graphics);
-		Level level = levels.get(levelNum);
 		g = (Graphics2D)graphics;
 		
 		level.paint(g);
@@ -100,19 +103,38 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		Level level = levels.get(levelNum);
-
 		level.keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		Level level = levels.get(levelNum);
-
 		level.keyReleased(e);
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentResized(ComponentEvent arg0) {
+		level.resize();
+	}
+
+	@Override
+	public void componentShown(ComponentEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
