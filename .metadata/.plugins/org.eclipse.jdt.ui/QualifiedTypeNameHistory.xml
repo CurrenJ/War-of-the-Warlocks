@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
-<fullyQualifiedTypeName name="java.awt.Point"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
-<fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
 <fullyQualifiedTypeName name="Characters.Player"/>
 <fullyQualifiedTypeName name="Camera.Camera"/>
 <fullyQualifiedTypeName name="Physics.PlayerPhysics"/>
@@ -12,7 +10,6 @@
 <fullyQualifiedTypeName name="java.awt.Window"/>
 <fullyQualifiedTypeName name="com.sun.javafx.geom.Shape"/>
 <fullyQualifiedTypeName name="java.awt.geom.RectangularShape"/>
-<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.sun.javafx.geom.Rectangle"/>
 <fullyQualifiedTypeName name="java.awt.Rectangle"/>
@@ -27,7 +24,6 @@
 <fullyQualifiedTypeName name="Items.Item"/>
 <fullyQualifiedTypeName name="Items.CoinItem"/>
 <fullyQualifiedTypeName name="java.awt.Graphics"/>
-<fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="Entities.Entity"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
 <fullyQualifiedTypeName name="java.util.Timer"/>
@@ -39,9 +35,15 @@
 <fullyQualifiedTypeName name="Graphics.EntityGraphics"/>
 <fullyQualifiedTypeName name="java.awt.AlphaComposite"/>
 <fullyQualifiedTypeName name="java.awt.Graphics2D"/>
-<fullyQualifiedTypeName name="Cameras.Camera"/>
 <fullyQualifiedTypeName name="Backgrounds.DarkCitySkylineBackground"/>
 <fullyQualifiedTypeName name="Backgrounds.ParallaxBackgroundSet"/>
 <fullyQualifiedTypeName name="Essentials.Window"/>
 <fullyQualifiedTypeName name="Graphics.BackgroundGraphics"/>
+<fullyQualifiedTypeName name="java.awt.Point"/>
+<fullyQualifiedTypeName name="Cameras.Camera"/>
+<fullyQualifiedTypeName name="com.sun.javafx.tk.Toolkit"/>
+<fullyQualifiedTypeName name="java.awt.Toolkit"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 </qualifiedTypeNameHistroy>

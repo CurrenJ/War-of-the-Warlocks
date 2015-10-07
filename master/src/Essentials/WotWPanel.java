@@ -56,7 +56,7 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener, Com
 		setPreferredSize(new Dimension(window.WIDTH, window.HEIGHT));
 		setDoubleBuffered(true);
 
-		player = new Player(null, 10, getHeight(), 0, 0, 0, 0, 0, 24, 44);
+		player = new Player(null, 10, getHeight(), 50, 25, 0, 0, 0, 24, 44);
 		levels = new ArrayList();
 
 		level1 = new Level1(player, this);

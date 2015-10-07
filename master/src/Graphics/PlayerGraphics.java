@@ -48,10 +48,7 @@ public class PlayerGraphics {
 		playerAnimationPauseTicks = 0;
 		playerAnimationPauseTicksMax = 50;
 
-		try {
-			soulImage = ImageIO.read(new URL("file:soul_15.png"));
-			goldImage = ImageIO.read(new URL("file:coin.png"));
-			
+		try {	
 			for(int i = 0; i < playerLeftImages.length; i++){
 				playerLeftImages[i] = ImageIO.read(new URL("file:warlockleft_" + i + ".png"));
 			}
@@ -99,39 +96,6 @@ public class PlayerGraphics {
 		
 		
 		g.drawImage(playerImage, (int) player.getX() - camera.getCamX(), (int) player.getY() - playerImage.getHeight(panel) - camera.getCamY(), panel);
-	}
-
-	public void drawHUD(Player player, Graphics2D g){
-		scale = (panel.getHeight() + panel.getWidth()) / 2 / 208;
-		if(scale < 1.5) scale = 1.5;
-
-		soulImageY = (int) scale;
-		scaledSoulImage = soulImage.getScaledInstance((int) (soulImage.getWidth(panel)*scale), (int) (soulImage.getHeight(panel)*scale), 0);
-		soulImageX = (int) (panel.getWidth() - soulImage.getWidth(panel) * scale - scale);
-
-		g.drawImage(scaledSoulImage, soulImageX, soulImageY, panel);
-
-		fontHUD = new Font("Cambria", 0, (int) (scaledSoulImage.getHeight(panel) / 1.5));
-
-		g.setFont(fontHUD);
-		String soulDisplay = "" + player.getSouls();
-		g.drawString(soulDisplay, (int) (soulImageX - g.getFontMetrics().stringWidth(soulDisplay) - scale), soulImageY + scaledSoulImage.getHeight(panel) / 2 + g.getFontMetrics().getAscent() / 2);
-		
-		
-		
-		g.setFont(fontHUD);
-		String goldDisplay = "" + player.getGold();
-		
-		scaledGoldImage = goldImage.getScaledInstance((int) (goldImage.getWidth(panel)*scale), (int) (goldImage.getHeight(panel)*scale), 0);
-		goldImageY = (int) scale + scaledSoulImage.getHeight(panel) / 2 - scaledGoldImage.getHeight(panel) / 2 + scaledSoulImage.getHeight(panel);
-		goldImageX = (int) ((panel.getWidth() - goldImage.getWidth(panel) * scale - scale));
-		
-		g.drawString(goldDisplay, (int) (goldImageX - g.getFontMetrics().stringWidth(goldDisplay) - scale), goldImageY + scaledGoldImage.getHeight(panel) / 2 + g.getFontMetrics().getAscent() / 2);
-
-		g.drawImage(scaledGoldImage, goldImageX, goldImageY, panel);
-	
-		
-		g.drawString(fps + "", panel.getWidth() - g.getFontMetrics().stringWidth(fps + ""), panel.getHeight());
 	}
 
 	public void giveFPS(int fps) {

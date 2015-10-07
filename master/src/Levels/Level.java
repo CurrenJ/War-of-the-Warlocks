@@ -14,6 +14,7 @@ import Characters.Player;
 import Entities.Entity;
 import Graphics.BackgroundGraphics;
 import Graphics.EntityGraphics;
+import Graphics.GUIGraphics;
 import Graphics.InventoryGraphics;
 import Graphics.ItemGraphics;
 import Graphics.PlatformGraphics;
@@ -30,14 +31,15 @@ import Platforms.Platform;
 
 public class Level {
 	private int levelNum;
-	private Player player;
+	protected Player player;
 	private ParallaxBackgroundSet background;
-	private JPanel panel;
+	protected JPanel panel;
 
 	private ArrayList<Platform> platforms;
 	private ArrayList<Item> items;
 	private ArrayList<Entity> entities;
 
+	private GUIGraphics guiGraphics;
 	private BackgroundGraphics backgroundGraphics;
 	private EntityGraphics entityGraphics;
 	private InventoryGraphics invGraphics;
@@ -93,6 +95,7 @@ public class Level {
 		items = new ArrayList();
 		entities = new ArrayList();
 
+		guiGraphics = new GUIGraphics(panel);
 		backgroundGraphics = new BackgroundGraphics(panel);
 		entityGraphics = new EntityGraphics(panel);
 		invGraphics = new InventoryGraphics(panel);
@@ -136,7 +139,7 @@ public class Level {
 
 			camera.reposition(player);
 			playerGraphics.drawPlayer(player, g, camera);
-			playerGraphics.drawHUD(player, g);
+			guiGraphics.drawGUI(player, g, camera);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

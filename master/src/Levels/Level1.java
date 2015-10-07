@@ -13,8 +13,6 @@ import Platforms.Platform;
 public class Level1 extends Level{
 	private ParallaxBackgroundSet background;
 	private int levelNum;
-	private Player player;
-	private JPanel panel;
 
 	public Level1(Player player, JPanel panel) {
 		super(0, player, panel);
@@ -23,6 +21,7 @@ public class Level1 extends Level{
 	@Override
 	public void levelCustomization(){
 		background = BackgroundGraphics.backgrounds.get("darkSkyline");
+		player.setHealth(100);
 		
 		addPlatform(new Platform(25, 200, 2000, 30, "stuff"));
 //		addSoul(new SoulItem(200, 165, panel));

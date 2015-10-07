@@ -150,4 +150,8 @@ public class Player {
 	public void setMovingLeft(boolean movingLeft) {
 		this.movingLeft = movingLeft;
 	}
+	
+	public double getPercentHealth(){
+		return ((double) healthMax / ((double) health)) * 100;
+	}
 }
