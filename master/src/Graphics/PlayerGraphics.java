@@ -46,7 +46,7 @@ public class PlayerGraphics {
 		} catch (Exception e1) {}
 		
 		playerAnimationPauseTicks = 0;
-		playerAnimationPauseTicksMax = 50;
+		playerAnimationPauseTicksMax = 125;
 
 		try {	
 			for(int i = 0; i < playerLeftImages.length; i++){

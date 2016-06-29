@@ -7,7 +7,7 @@ public class SoulItem extends Item{
 	private int bobMax = 10;
 
 	public SoulItem(int x, int y, JPanel panel) {
-		super(x, y, 7, 12, 20, "soul", panel, 20);
+		super(x, y, 7, 12, 20, "soul", 8, panel, 20);
 		disableGravity = true;
 	}
 	

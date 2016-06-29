@@ -29,7 +29,6 @@
 <fullyQualifiedTypeName name="java.util.Timer"/>
 <fullyQualifiedTypeName name="javax.swing.Timer"/>
 <fullyQualifiedTypeName name="Entities.SoulBitEntity"/>
-<fullyQualifiedTypeName name="java.awt.Image"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="Graphics.EntityGraphics"/>
@@ -46,4 +45,7 @@
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
 <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+<fullyQualifiedTypeName name="Characters.Enemy"/>
+<fullyQualifiedTypeName name="java.awt.Image"/>
+<fullyQualifiedTypeName name="Graphics.EnemyGraphics"/>
 </qualifiedTypeNameHistroy>

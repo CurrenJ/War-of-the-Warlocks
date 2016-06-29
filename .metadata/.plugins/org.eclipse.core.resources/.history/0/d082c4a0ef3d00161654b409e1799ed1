@@ -1,0 +1,104 @@
+package Graphics;
+
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
+import Cameras.Camera;
+import Characters.Player;
+
+public class PlayerGraphics {
+	JPanel panel;
+	Image soulImage = null;
+	Image goldImage = null;
+	double scale;
+	Image scaledSoulImage;
+	Image scaledGoldImage;
+	Image[] playerLeftImages;
+	Image[] playerRightImages;
+	int soulImageX;
+	int soulImageY;
+	int goldImageX;
+	int goldImageY;
+	Font fontHUD;
+	int playerAnimationFrame;
+	int playerAnimationPauseTicks;
+	int playerAnimationPauseTicksMax;
+
+	Image playerImage;
+	
+	int fps;
+
+	//Draws the player
+	//
+	//Will pass in Player object
+	public PlayerGraphics(JPanel panel){
+		this.panel = panel;
+		playerLeftImages = new Image[4];
+		playerRightImages = new Image[4];
+		try {
+			playerImage = ImageIO.read(new URL("file:warlockidle.png"));
+		} catch (Exception e1) {}
+		
+		playerAnimationPauseTicks = 0;
+		playerAnimationPauseTicksMax = 150;
+
+		try {	
+			for(int i = 0; i < playerLeftImages.length; i++){
+				playerLeftImages[i] = ImageIO.read(new URL("file:warlockleft_" + i + ".png"));
+			}
+			for(int i = 0; i < playerRightImages.length; i++){
+				playerRightImages[i] = ImageIO.read(new URL("file:warlockright_" + i + ".png"));
+			}
+		} catch (Exception e) {}
+	}
+
+	public void drawPlayer(Player player, Graphics2D g, Camera camera){
+		//g.drawRect((int) (player.getX() - camera.getCamX()), ((int) (player.getY() - player.getHeight()) - camera.getCamY()), player.getWidth(), player.getHeight());
+		
+		if(player.isMovingLeft()){
+			if(playerAnimationPauseTicks == playerAnimationPauseTicksMax){
+				playerAnimationPauseTicks = 0;
+				playerAnimationFrame++;
+			}
+			else playerAnimationPauseTicks++;
+			
+			if(playerAnimationFrame == playerLeftImages.length)
+				playerAnimationFrame = 0;
+		
+			//System.out.println(playerAnimationFrame);
+			playerImage = playerLeftImages[playerAnimationFrame];
+			player.setDirection("left");
+		}
+		else if(player.isMovingRight()){
+			if(playerAnimationPauseTicks == playerAnimationPauseTicksMax){
+				playerAnimationPauseTicks = 0;
+				playerAnimationFrame++;
+			}
+			else playerAnimationPauseTicks++;
+			
+			if(playerAnimationFrame == playerRightImages.length)
+				playerAnimationFrame = 0;
+		
+			//System.out.println(playerAnimationFrame);
+			playerImage = playerRightImages[playerAnimationFrame];
+			player.setDirection("right");
+		}
+		else if(player.getDirection().equals("right"))
+			playerImage = playerRightImages[0];
+		else if(player.getDirection().equals("left"))
+			playerImage = playerLeftImages[0];
+		
+		
+		g.drawImage(playerImage, (int) player.getX() - camera.getCamX(), (int) player.getY() - playerImage.getHeight(panel) - camera.getCamY(), panel);
+	}
+
+	public void giveFPS(int fps) {
+		this.fps = fps;
+	}
+}

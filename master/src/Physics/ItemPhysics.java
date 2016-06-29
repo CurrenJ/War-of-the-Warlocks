@@ -9,16 +9,17 @@ import Characters.Player;
 import Entities.GoldBitEntity;
 import Entities.SoulBitEntity;
 import Items.Item;
+import Items.OrbItem;
 import Platforms.Platform;
 
 public class ItemPhysics extends Physics{
-	public static final double FRICTION_FACTOR = 15;
-	public static final double FRICTION_VAR = FRICTION_FACTOR / 500 + 1;
+	public static final double FRICTION_COEFFICIENT = 5;
+	public static double frictionVar;
 	public static final double ATTRACT_DIST = 100;
 
 	PlayerPhysics playerPhysics;
 	EntityPhysics entityPhysics;
-	
+
 	boolean gravityEnabled;
 	JPanel panel;
 
@@ -84,8 +85,16 @@ public class ItemPhysics extends Physics{
 		ArrayList<Double> speeds = item.getSpeeds();
 		ArrayList<Double> angles = item.getAngles();
 
+		frictionVar = (FRICTION_COEFFICIENT + item.getFrictionCoefficient()) / 500 + 1;
+
 		if(item.getClass().getSimpleName().equals("SoulItem")){
 			attractToPlayer(item, player);
+		}
+
+		if(item.getClass().getSimpleName().equals("OrbItem")){
+			if(item.getSpeeds().isEmpty()){
+				explodeOrb(item);
+			}
 		}
 
 		if(gravityEnabled && !item.isGravityDisabled())
@@ -165,13 +174,13 @@ public class ItemPhysics extends Physics{
 			item.setX(ptX);
 			item.setY(ptY);
 
-			if(speeds.get(n) / FRICTION_VAR > -1 && speeds.get(n) / FRICTION_VAR < 1){
+			if(speeds.get(n) / frictionVar > -1 && speeds.get(n) / frictionVar < 1){
 				speeds.set(n, (double) 0);
 				angles.set(n, (double) 0);
 				names.set(n, "");
 				n++;
 			}
-			else addVelocity(speeds.get(n) / FRICTION_VAR, angles.get(n), names.get(n), item);
+			else addVelocity(speeds.get(n) / frictionVar, angles.get(n), names.get(n), item);
 		}
 		for(int n = 0; n < names.size(); n++){
 			if(names.get(n).equals("")){
@@ -190,41 +199,57 @@ public class ItemPhysics extends Physics{
 		else return false;
 	}
 
+	public void explodeOrb(Item item){
+		items.remove(item);
+		
+		SoulBitEntity soulBit;
+		int time = (int) System.currentTimeMillis();
+		
+		int soulbits = (int) (Math.round(Math.random() * 32) * 1.75);
+		int degreeDif = 360 / soulbits;
+		for(int i = 0; i < soulbits; i++){
+			soulBit = new SoulBitEntity((int) item.getX(), (int) item.getY(), panel);
+			soulBit.startAgeAt(time);
+			entityPhysics.addVelocity(1.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i, "Soul Bit Poof", soulBit);
+			entities.add(soulBit);
+		}
+	}
+
 	public boolean playerInteraction(Player player, Item item){
 		//System.out.println("You're touching " + item.getClass().getSimpleName());
 		if(item.getClass().getSimpleName().equals("SoulItem")){
 			//System.out.println("It's a soul you're touching!");
 			player.addSoul();
-			
+
 			SoulBitEntity soulBit;
 			int time = (int) System.currentTimeMillis();
-			
+
 			int soulbits = (int) (Math.round(Math.random() * 32) * 1.75);
 			int degreeDif = 360 / soulbits;
 			for(int i = 0; i < soulbits; i++){
-			soulBit = new SoulBitEntity((int) item.getX(), (int) item.getY(), panel);
-			soulBit.startAgeAt(time);
-			entityPhysics.addVelocity(1.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i, "Soul Bit Poof", soulBit);
-			entities.add(soulBit);
+				soulBit = new SoulBitEntity((int) item.getX(), (int) item.getY(), panel);
+				soulBit.startAgeAt(time);
+				entityPhysics.addVelocity(1.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i, "Soul Bit Poof", soulBit);
+				entities.add(soulBit);
 			}
-			
+
 			return true;
 		}
 		else if(item.getClass().getSimpleName().equals("CoinItem")){
 			player.setGold(player.getGold() + 1);
-			
+
 			GoldBitEntity goldBit;
 			int time = (int) System.currentTimeMillis();
-			
+
 			int goldbits = (int) (Math.round(Math.random() * 32) + 1);
 			int degreeDif = 90 / goldbits;
 			for(int i = 0; i < goldbits; i++){
-			goldBit = new GoldBitEntity((int) item.getX(), (int) item.getY(), panel);
-			goldBit.startAgeAt(time);
-			entityPhysics.addVelocity(2.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i + 315, "Gold Bit Poof", goldBit);
-			entities.add(goldBit);
+				goldBit = new GoldBitEntity((int) item.getX(), (int) item.getY(), panel);
+				goldBit.startAgeAt(time);
+				entityPhysics.addVelocity(2.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i + 315, "Gold Bit Poof", goldBit);
+				entities.add(goldBit);
 			}
-			
+
 			return true;
 		}
 		else return false;
@@ -253,5 +278,9 @@ public class ItemPhysics extends Physics{
 
 	public PlayerPhysics getPlayerPhysics(){
 		return playerPhysics;
+	}
+
+	public void fireOrb() {
+
 	}
 }

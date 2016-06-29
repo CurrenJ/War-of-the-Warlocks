@@ -21,13 +21,14 @@ public class Item {
 	private JPanel panel;
 	protected int animationPause = 0;
 	protected int curPauseNum = 0;
+	protected double FRICTION_COEFFICIENT;
 	protected boolean disableGravity;
 
 	ArrayList<Double> speeds;
 	ArrayList<Double> angles;
 	ArrayList<String> names;
 
-	public Item(int x, int y, String prefix, JPanel panel){
+	public Item(int x, int y, String prefix, double FRICTION_COEFFICIENT, JPanel panel){
 		speeds = new ArrayList();
 		angles = new ArrayList();
 		names = new ArrayList();
@@ -36,6 +37,7 @@ public class Item {
 		xPos = x;
 		yPos = y;
 		filePrefix = prefix;
+		this.FRICTION_COEFFICIENT = FRICTION_COEFFICIENT;
 		this.panel = panel;
 
 		loadImages();
@@ -44,7 +46,7 @@ public class Item {
 		height = images.get(0).getHeight(panel);
 	}
 
-	public Item(int x, int y, int width, int height, String prefix, JPanel panel){
+	public Item(int x, int y, int width, int height, String prefix, double FRICTION_COEFFICIENT, JPanel panel){
 		speeds = new ArrayList();
 		angles = new ArrayList();
 		names = new ArrayList();
@@ -55,12 +57,13 @@ public class Item {
 		this.width = width;
 		this.height = height;
 		filePrefix = prefix;
+		this.FRICTION_COEFFICIENT = FRICTION_COEFFICIENT;
 		this.panel = panel;
 
 		loadImages();
 	}
 
-	public Item(int x, int y, int width, int height, int animationFrames, String prefix, JPanel panel, int pause){
+	public Item(int x, int y, int width, int height, int animationFrames, String prefix, double FRICTION_COEFFICIENT, JPanel panel, int pause){
 		speeds = new ArrayList();
 		angles = new ArrayList();
 		names = new ArrayList();
@@ -72,13 +75,14 @@ public class Item {
 		this.height = height;
 		this.animationFrames = animationFrames;
 		filePrefix = prefix;
+		this.FRICTION_COEFFICIENT = FRICTION_COEFFICIENT;
 		this.panel = panel;
 		animationPause = pause;
 
 		loadImages();
 	}
 
-	public Item(int x, int y, int animationFrames, String prefix, JPanel panel, int pause){
+	public Item(int x, int y, int animationFrames, String prefix, double FRICTION_COEFFICIENT, JPanel panel, int pause){
 		speeds = new ArrayList();
 		angles = new ArrayList();
 		names = new ArrayList();
@@ -89,6 +93,7 @@ public class Item {
 		this.animationFrames = animationFrames;
 		filePrefix = prefix;
 		this.panel = panel;
+		this.FRICTION_COEFFICIENT = FRICTION_COEFFICIENT;
 		animationPause = pause;
 
 		loadImages();
@@ -199,5 +204,9 @@ public class Item {
 
 	public void setImage(BufferedImage image) {
 		this.image = image;
+	}
+
+	public double getFrictionCoefficient() {
+		return FRICTION_COEFFICIENT;
 	}
 }

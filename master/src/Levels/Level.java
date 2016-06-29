@@ -21,6 +21,7 @@ import Graphics.PlatformGraphics;
 import Graphics.PlayerGraphics;
 import Items.CoinItem;
 import Items.Item;
+import Items.OrbItem;
 import Items.SoulItem;
 import Physics.EntityPhysics;
 import Physics.ItemPhysics;
@@ -54,7 +55,7 @@ public class Level {
 	private DarkCitySkylineBackground darkSkyline;
 
 	private Camera camera;
-	
+
 	private boolean backgroundSizeAdjusted;
 
 	long tempTime;
@@ -86,6 +87,16 @@ public class Level {
 		items.add(coin);
 	}
 
+	public void fireOrb(){
+		if(player.getSouls() >= 1){
+			OrbItem orb = new OrbItem((int) player.getX(), (int) player.getY(), panel);
+			double angle = itemPhysics.angleBetweenPoints((int) player.getX() - camera.getCamX(), (int) player.getY() - player.getHeight() - camera.getCamY(), panel.getMousePosition().getX(), panel.getMousePosition().getY());
+			itemPhysics.addVelocity(3.5, angle+80, "launch", orb);
+			player.setSouls(player.getSouls()-1);
+			items.add(orb);
+		}
+	}
+
 	public void addEntity(Entity entity){
 		entities.add(entity);
 	}
@@ -108,10 +119,10 @@ public class Level {
 		itemPhysics = new ItemPhysics(panel, true);
 		platforms = new ArrayList();
 		items = new ArrayList();
-		
+
 		darkSkyline = new DarkCitySkylineBackground(panel);
 		darkSkyline.addToBackgrounds();
-		
+
 		backgroundSizeAdjusted = false;
 		background = BackgroundGraphics.backgrounds.get("darkSkyline"); //sets as default
 
@@ -121,7 +132,7 @@ public class Level {
 	public void paint(Graphics2D g) {
 		try {
 			backgroundGraphics.drawBackground(background, g, camera);
-			
+
 			for(int p = 0; p < platforms.size(); p++){
 				Platform platform = platforms.get(p);
 				platformGraphics.drawPlatform(platform, g, camera);
@@ -214,6 +225,9 @@ public class Level {
 			player.setMovingRight(false);
 		else if(e.getKeyChar() == 'a')
 			player.setMovingLeft(false);
+		else if(e.getKeyChar() == 'z'){
+			fireOrb();
+		}
 	}
 
 	public void calculateFPS(){
