@@ -7,9 +7,9 @@ import javax.swing.JPanel;
 
 import Characters.Player;
 import Entities.GoldBitEntity;
+import Entities.OrbBitEntity;
 import Entities.SoulBitEntity;
 import Items.Item;
-import Items.OrbItem;
 import Platforms.Platform;
 
 public class ItemPhysics extends Physics{
@@ -202,16 +202,16 @@ public class ItemPhysics extends Physics{
 	public void explodeOrb(Item item){
 		items.remove(item);
 		
-		SoulBitEntity soulBit;
+		OrbBitEntity orbBit;
 		int time = (int) System.currentTimeMillis();
 		
-		int soulbits = (int) (Math.round(Math.random() * 32) * 1.75);
-		int degreeDif = 360 / soulbits;
-		for(int i = 0; i < soulbits; i++){
-			soulBit = new SoulBitEntity((int) item.getX(), (int) item.getY(), panel);
-			soulBit.startAgeAt(time);
-			entityPhysics.addVelocity(1.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i, "Soul Bit Poof", soulBit);
-			entities.add(soulBit);
+		int orbBits = (int) (Math.round(Math.random() * 20) * 1.75) + 4;
+		int degreeDif = 90 / orbBits;
+		for(int i = 0; i < orbBits; i++){
+			orbBit = new OrbBitEntity((int) item.getX(), (int) item.getY(), panel);
+			orbBit.startAgeAt(time);
+			entityPhysics.addVelocity(2.5 + (Math.nextAfter(Math.random(), 0.01)), degreeDif * i + 320, "Orb Explode Poof", orbBit);
+			entities.add(orbBit);
 		}
 	}
 

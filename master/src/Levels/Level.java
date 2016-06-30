@@ -90,8 +90,8 @@ public class Level {
 	public void fireOrb(){
 		if(player.getSouls() >= 1){
 			OrbItem orb = new OrbItem((int) player.getX(), (int) player.getY(), panel);
-			double angle = itemPhysics.angleBetweenPoints((int) player.getX() - camera.getCamX(), (int) player.getY() - player.getHeight() - camera.getCamY(), panel.getMousePosition().getX(), panel.getMousePosition().getY());
-			itemPhysics.addVelocity(3.5, angle+80, "launch", orb);
+			double angle = itemPhysics.angleBetweenPoints(panel.getMousePosition().getX(), panel.getMousePosition().getY(), (int) player.getX() - camera.getCamX(), (int) player.getY() - player.getHeight() - camera.getCamY());
+			itemPhysics.addVelocity(3.5, angle+270, "launch", orb);
 			player.setSouls(player.getSouls()-1);
 			items.add(orb);
 		}

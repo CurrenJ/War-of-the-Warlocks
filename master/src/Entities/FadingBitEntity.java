@@ -6,8 +6,8 @@ public class FadingBitEntity extends Entity{
 	int fadeStart;
 	public int LIFE_SPAN;
 	
-	public FadingBitEntity(int x, int y, int width, int height, String prefix, int lifespan ,JPanel panel){
-		super(x, y, width, height, prefix, panel);
+	public FadingBitEntity(int x, int y, int width, int height, String prefix, int lifespan , double FRICTION_COEFFICIENT,JPanel panel){
+		super(x, y, width, height, prefix, FRICTION_COEFFICIENT, panel);
 		
 		LIFE_SPAN = lifespan;
 		fadeStart = (int) (Math.random() * LIFE_SPAN);

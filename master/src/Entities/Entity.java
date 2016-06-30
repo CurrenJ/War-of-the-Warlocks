@@ -24,13 +24,14 @@ public class Entity {
 	boolean gravityEnabled = false;
 	String prefix = "";
 	long startTime;
+	protected double FRICTION_COEFFICIENT;
 
 	Image image = null;
 	
 	protected float opacity;
 	public final float BASE_OPACITY = 1;
 
-	public Entity(int x, int y, int width, int height, JPanel panel){
+	public Entity(int x, int y, int width, int height, double FRICTION_COEFFICIENT, JPanel panel){
 		//Initializes movement arraylists
 		names = new ArrayList();
 		speeds = new ArrayList();
@@ -41,12 +42,13 @@ public class Entity {
 		yPos = y;
 		this.width = width;
 		this.height = height;
+		this.FRICTION_COEFFICIENT = FRICTION_COEFFICIENT;
 		this.panel = panel; //Needed for some graphics
 		
 		opacity = BASE_OPACITY;
 	}
 
-	public Entity(int x, int y, int width, int height, String prefix, JPanel panel){
+	public Entity(int x, int y, int width, int height, String prefix, double FRICTION_COEFFICIENT, JPanel panel){
 		//Initializes movement arraylists
 		names = new ArrayList();
 		speeds = new ArrayList();
@@ -58,6 +60,7 @@ public class Entity {
 		this.width = width;
 		this.height = height;
 		this.prefix = prefix;
+		this.FRICTION_COEFFICIENT = FRICTION_COEFFICIENT;
 		this.panel = panel; //Needed for some graphicsgra
 		
 		opacity = BASE_OPACITY;
@@ -151,5 +154,9 @@ public class Entity {
 
 	public float getOpacity() {
 		return opacity;
+	}
+
+	public double getFrictionCoefficient() {
+		return FRICTION_COEFFICIENT;
 	}
 }

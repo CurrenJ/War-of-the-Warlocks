@@ -7,7 +7,7 @@ public class OrbItem extends Item{
 	private int bobMax = 10;
 
 	public OrbItem(int x, int y, JPanel panel) {
-		super(x, y, "orb", 1, panel);
+		super(x, y, "orb", 10, panel);
 		disableGravity = true;
 	}
 	

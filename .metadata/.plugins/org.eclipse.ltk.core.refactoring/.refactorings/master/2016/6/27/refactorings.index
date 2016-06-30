@@ -1,2 +1,6 @@
 1467202830992	Rename field 'FRICTION_VAR'
 1467202898435	Rename field 'FRICTION_FACTOR'
+1467246608750	Copy compilation unit
+1467246708317	Rename local variable 'soulBit'
+1467246721857	Rename local variable 'soulbits'
+1467247347034	Rename field 'FRICTION_FACTOR'
