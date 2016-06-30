@@ -1,7 +1,7 @@
 package Essentials;
 
+import Items.Item;
 import Levels.Level;
-import Levels.Menu;
 
 public class WotWExecution extends WotWPanel  {
 
@@ -18,14 +18,9 @@ public class WotWExecution extends WotWPanel  {
 			try 
 			{ 
 				Thread.sleep(8);
-				if(!titleScreen){
 				Level level = levels.get(levelNum);
 				
 				level.run();
-				}
-				else{		
-					menu.run();
-				}
 				
 				repaint(); 
 			}catch(Exception e) 

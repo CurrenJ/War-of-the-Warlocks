@@ -16,10 +16,20 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Cameras.Camera;
 import Characters.Player;
+import Graphics.EntityGraphics;
+import Graphics.InventoryGraphics;
+import Graphics.ItemGraphics;
+import Graphics.PlatformGraphics;
+import Graphics.PlayerGraphics;
+import Items.Item;
+import Items.SoulItem;
 import Levels.Level;
 import Levels.Level1;
-import Levels.Menu;
+import Physics.ItemPhysics;
+import Physics.PlayerPhysics;
+import Platforms.Platform;
 
 
 public class WotWPanel extends JPanel implements KeyListener, MouseListener, ComponentListener{
@@ -28,9 +38,7 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener, Com
 	ArrayList<Level> levels;
 	int levelNum = 0;
 	Graphics2D g = null;
-	boolean titleScreen = true;
 
-	Menu menu;
 	Level1 level1;
 	Player player;
 	Level level;
@@ -51,8 +59,6 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener, Com
 		player = new Player(null, 10, getHeight(), 50, 25, 0, 0, 0, 24, 44);
 		levels = new ArrayList();
 
-		menu = new Menu(this);
-		menu.initialize();
 		level1 = new Level1(player, this);
 		levels.add(level1);
 
@@ -68,13 +74,8 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener, Com
 	public void paint(Graphics graphics){
 		super.paint(graphics);
 		g = (Graphics2D)graphics;
-
-		if(!titleScreen){
-			level.paint(g);
-		}
-		else{
-			menu.paint(g);
-		}
+		
+		level.paint(g);
 	}
 
 	public int getMouseX(){
@@ -117,13 +118,13 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener, Com
 	@Override
 	public void componentHidden(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void componentMoved(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -134,6 +135,6 @@ public class WotWPanel extends JPanel implements KeyListener, MouseListener, Com
 	@Override
 	public void componentShown(ComponentEvent arg0) {
 		// TODO Auto-generated method stub
-
+		
 	}
 }
